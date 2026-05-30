@@ -79,6 +79,8 @@
         margin: 0;
         width: 40%;
         position: relative;
+        top: 10px;
+
         z-index: 1;
 
     }
@@ -92,7 +94,7 @@
 
 
     .logout {
-        margin-top: -90px;
+        /* margin-top: 9px; */
         background: #000;
         border: solid 1px var(--corPrincipal);
         color: white;
