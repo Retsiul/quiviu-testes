@@ -93,7 +93,7 @@
 
     .logout {
         margin-top: -90px;
-        background: transparent;
+        background: #000;
         border: solid 1px var(--corPrincipal);
         color: white;
         border-radius: 6px;
