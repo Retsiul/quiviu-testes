@@ -226,6 +226,7 @@
         max-height: 200px;
         overflow-y: auto;
         color: #333;
+        box-shadow: 0 6px 10px rgb(201, 201, 201);
         font-size: 16px;
         font-weight: 500;
     }
@@ -249,6 +250,7 @@
 
     ul#lista-sugestoes::-webkit-scrollbar {
         background-color: #ffffff;
+        width: 3px;
 
     }
 
