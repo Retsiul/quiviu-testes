@@ -248,8 +248,16 @@
     }
 
     ul#lista-sugestoes::-webkit-scrollbar {
-        display: none;
+        background-color: #ffffff;
+
     }
+
+    ul#lista-sugestoes::-webkit-scrollbar-thumb {
+        background-color: var(--corPrincipal);
+        border: solid 5px #ffffff;
+        border-radius: 10px;
+    }
+
 
     .clube {
         display: flex;
