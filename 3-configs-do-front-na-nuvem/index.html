@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Quiviu</title>
+</head>
+<body>
+    <div class="hero"></div>
+
+    <div class="container">
+        <header>
+
+            <div>
+                <h1><img src="https://www.quiviu.com.br/assets/logo.png" alt="logo quiviu"></h1>
+                <small id="boas-vindas">Olá, Usuário</small>
+            </div>
+            <button class="logout" onclick="logout()">
+                <img src="assets/exit-icon.svg" alt="sair">
+                Sair</button>
+        </header>
+        <!-- - -->
+        <div class="viewport">
+            <div class="container-secao">
+                <div class="secao">
+                    <h3>Buscar Clube</h3>
+                    <div class="busca">
+                        <input type="text" id="busca-clube-texto" placeholder="pesquisar..." autocomplete="off" />
+                        <ul id="lista-sugestoes">
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="painel-clube-atual" class="oculto">
+                    <div class="clube">
+                        <img src="https://img.magnific.com/vetores-gratis/modelo-de-logotipo-de-clube-de-esporte-vintage-desenhado-a-mao_23-2149485243.jpg"
+                            alt="">
+                        <div>
+                            <h2 id="nome-clube-titulo">
+                                Clube Selecionado
+
+                            </h2>
+
+                            <p id="nome-cidade">
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="secao ">
+
+
+                        <label><strong>Dia</strong></label>
+                        <input type="date" id="filtro-calendario" onchange="mudarData()">
+                    </div>
+
+                    <div class="secao">
+                        <label><strong>Quadras </strong> <img src="assets/soccer-icon.svg" alt=""></label>
+                        <div class="btn-grupo container-quadras" id="grupo-quadras"></div>
+                    </div>
+
+
+
+                    <div class="secao" id="esconder-horarios">
+                        <label><strong>Horário</strong><img src="assets/clock-icon.svg" alt=""> </label>
+                        <div class="container-horarios" id="grupo-horarios"></div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="erro-replay" id="erro-replay"></div>
+        </div>
+        <div class="grid-replays" id="grid-replays"></div>
+
+        <button class="fechar-replay" id="fechar-replay">fechar</button>
+
+    </div>
+
+    <script>
+
+
+        if (!localStorage.getItem("userToken")) window.location.href = "login.html";
+        document.getElementById("boas-vindas").innerText = `Bem-vindo, ${localStorage.getItem("userName") || 'Usuário'}`;
+        let nomeClubeSelecionado = "";
+        let clubeSelecionadoId = "";
+        let quadraSelecionada = "";
+        let dataSelecionada = "";
+        let horaSelecionada = "";
+        let replays = [];
+        const API_BASE_URL = "https://api.quiviu.com.br";
+
+        window.onload = function () {
+            definirDataHoje();
+            configurarBuscaDinamica();
+            fecharReplay()
+
+        };
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+
+        // -----------------------------
+
+        function fecharReplay() {
+            const grid = document.getElementById("grid-replays");
+
+            document.getElementById("fechar-replay").addEventListener('click', function () {
+
+                grid.classList.remove("overlay-videos");
+
+                document.getElementById("fechar-replay").style.display = 'none';
+
+                grid.style.display = 'none';
+
+                replays.length = 0;
+
+                quadraSelecionada = "";
+                horaSelecionada = "";
+
+                // remove ativo das quadras
+                document.querySelectorAll("#grupo-quadras .btn-opcao")
+                    .forEach(b => b.classList.remove("ativo"));
+
+                // remove ativo dos horários
+                document.querySelectorAll("#grupo-horarios .btn-opcao")
+                    .forEach(b => b.classList.remove("ativo"));
+
+                carregarFiltrados();
+
+            });
+        }
+
+        // --------------------
+
+        function definirDataHoje() {
+            const hoje = new Date();
+            const ano = hoje.getFullYear();
+            const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+            const dia = String(hoje.getDate()).padStart(2, '0');
+            dataSelecionada = `${ano}-${mes}-${dia}`;
+            document.getElementById("filtro-calendario").value = dataSelecionada;
+        }
+
+        // Configura a barra de pesquisa que busca no banco à medida que o usuário digita
+        function configurarBuscaDinamica() {
+            const inputBusca = document.getElementById("busca-clube-texto");
+            const listaSugestoes = document.getElementById("lista-sugestoes");
+
+            inputBusca.addEventListener("input", async (e) => {
+                const termo = e.target.value.trim();
+
+                if (termo.length < 1) {
+                    listaSugestoes.style.display = "none";
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/clubes/busca?termo=${encodeURIComponent(termo)}`);
+                    const clubes = await response.json();
+
+                    listaSugestoes.innerHTML = "";
+
+                    if (clubes.length > 0) {
+                        clubes.forEach(clube => {
+                            const li = document.createElement("li");
+                            li.textContent = clube.nome;
+                            // luis mexeu aqui
+                            li.innerHTML = `   <img style="width: 35px;height: 35px;border-radius: 50%;"src="https://img.magnific.com/vetores-gratis/modelo-de-logotipo-de-clube-de-esporte-vintage-desenhado-a-mao_23-2149485243.jpg"
+                            alt=""> ${clube.nome}`
+                            // 
+                            li.style.padding = "10px";
+                            li.style.cursor = "pointer";
+
+                            li.addEventListener("click", () => {
+                                inputBusca.value = clube.nome;
+                                listaSugestoes.style.display = "none";
+                                selecionarClube(clube.id, clube.nome);
+                                inputBusca.value = "";
+                            });
+                            listaSugestoes.appendChild(li);
+                        });
+                        listaSugestoes.style.display = "block";
+                    } else {
+                        listaSugestoes.style.display = "none";
+                    }
+                } catch (e) { console.error("Erro ao buscar clubes dinamicamente", e); }
+            });
+
+            // Fecha as sugestões se clicar fora
+            document.addEventListener("click", (e) => {
+                if (e.target !== inputBusca) listaSugestoes.style.display = "none";
+            });
+        }
+
+        function gerarHorariosDisponiveis(replays) {
+
+            const container = document.getElementById("grupo-horarios");
+
+            container.innerHTML = "";
+
+            // pega horas únicas
+            const horasUnicas = [...new Set(
+                replays.map(r => {
+                    const data = new Date(r.data_criacao.replace('_', 'T'));
+                    return String(data.getHours()).padStart(2, '0');
+                })
+            )];
+
+            // ordena
+            horasUnicas.sort();
+
+            horasUnicas.forEach(horaStr => {
+
+                const btn = document.createElement("button");
+
+                btn.className = "btn-opcao";
+
+                btn.textContent = `${horaStr}:00`;
+
+                btn.onclick = function () {
+                    mudarHora(horaStr, this);
+
+
+                };
+
+                container.appendChild(btn);
+
+                // 
+                if (horaStr === horaSelecionada) {
+                    btn.classList.add("ativo");
+
+                }
+
+            });
+        }
+        // -----------------------------------------------
+
+
+        // Executado quando um clube é clicado na lista de sugestões
+        async function selecionarClube(id, nome) {
+            clubeSelecionadoId = id;
+            nomeClubeSelecionado = nome;
+
+            document.getElementById("nome-clube-titulo").innerText = nome;
+            document.getElementById("nome-cidade").innerHTML = ' <img class="icon-local" src="assets/icon-local.svg" alt = "cidade" /> são benedito-ce';
+            document.getElementById("painel-clube-atual").classList.remove("oculto");
+
+            quadraSelecionada = "";
+            horaSelecionada = "";
+            definirDataHoje();
+
+            // Renderiza as quadras dinamicamente a partir do BD do clube escolhido antes de filtrar
+            await carregarQuadrasDoClube(id);
+
+            carregarFiltrados();
+        }
+
+        // Busca as quadras vinculadas a este clube específico no banco de dados da nuvem
+        async function carregarQuadrasDoClube(clubeId) {
+            const containerQuadras = document.getElementById("grupo-quadras");
+            containerQuadras.innerHTML = ''
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/clubes/${clubeId}/quadras`);
+                const quadras = await response.json();
+
+                quadras.forEach(q => {
+                    const btn = document.createElement("button");
+
+                    btn.className = "btn-quadras btn-opcao";
+                    btn.textContent = q.nome_exibicao;
+                    btn.onclick = function () { mudarQuadra(q.identificador_rasp, this); };
+                    containerQuadras.appendChild(btn);
+
+                });
+            } catch (e) { console.error("Erro ao carregar as quadras do clube", e); }
+
+
+        }
+
+        function mudarQuadra(quadra, botao) {
+            document.querySelectorAll("#grupo-quadras .btn-opcao").forEach(b => b.classList.remove("ativo"));
+            botao.classList.add("ativo");
+            quadraSelecionada = quadra;
+            carregarFiltrados();
+        }
+
+        function mudarData() {
+            dataSelecionada = document.getElementById("filtro-calendario").value;
+            carregarFiltrados();
+        }
+
+        function mudarHora(hora, botao) {
+            document.querySelectorAll("#grupo-horarios .btn-opcao").forEach(b => b.classList.remove("ativo"));
+            botao.classList.add("ativo");
+            horaSelecionada = hora;
+            carregarFiltrados();
+
+        }
+
+        async function carregarFiltrados() {
+            const grid = document.getElementById("grid-replays");
+            const erro = document.getElementById("erro-replay");
+
+            grid.innerHTML = "<p>Buscando gravações correspondentes...</p>";
+
+            try {
+
+                let url = `${API_BASE_URL}/api/replays?clubeId=${clubeSelecionadoId}&data=${dataSelecionada}`;
+                if (quadraSelecionada) url += `&quadra=${quadraSelecionada}`;
+                if (horaSelecionada) url += `&hora=${horaSelecionada}`;
+
+                const response = await fetch(url);
+                replays = await response.json();
+
+                // --------pode ser que seja removida se não der certo------------------------
+                if (Array.isArray(replays)) {
+                    gerarHorariosDisponiveis(replays);
+                }
+                // -----------------------------------
+
+                grid.innerHTML = "";
+                if (replays.length === 0 && quadraSelecionada) {
+                    erro.innerHTML = `<div class="msg-vazia">Não há gravações nesse periodo!</div>`;
+                    erro.style.display = 'block';
+
+                    document.getElementById("esconder-horarios").style.display = 'none'
+                    console.log('inner igual a 0')
+
+                    return;
+                }
+
+                // luis alterou aqui
+
+
+                if (replays.length >= 1) {
+                    document.getElementById("esconder-horarios").style.display = 'flex';
+                    erro.style.display = 'none';
+
+                }
+
+                if (replays.length >= 1 && quadraSelecionada && horaSelecionada) {
+
+                    grid.classList.add("overlay-videos");
+                    grid.style.display = 'flex';
+                    document.getElementById("fechar-replay").style.display = 'block';
+
+                    console.log('ola');
+                }
+
+
+
+                replays.forEach(r => {
+                    let horaLegivel = r.data_criacao;
+                    try { horaLegivel = new Date(r.data_criacao.replace('_', 'T')).toLocaleString("pt-BR"); } catch (e) { }
+
+                    grid.innerHTML += `
+                    <div class="card-video">
+                        <video src="${r.url_video}" controls preload="none"></video>
+                        <div class="card-corpo">
+                            <div class="card-titulo">${r.quadra.toUpperCase()}</div>
+                            <div style="font-size:13px; color:#fff; margin-top:5px;">${horaLegivel}</div>
+                        </div>
+
+
+            <div class="nome-clube">
+                ${nomeClubeSelecionado}
+            </div>
+                    </div>
+                `;
+                });
+            } catch (e) { grid.innerHTML = "<p style='color:#ff3333;'>Erro ao carregar dados.</p>"; }
+        }
+    </script>
+</body>
+</html>
