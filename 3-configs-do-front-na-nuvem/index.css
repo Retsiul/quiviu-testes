@@ -248,13 +248,12 @@
     }
 
     ul#lista-sugestoes::-webkit-scrollbar {
-        background-color: #ff0000;
+        background-color: #ffffff;
 
     }
 
     ul#lista-sugestoes::-webkit-scrollbar-thumb {
         background-color: var(--corPrincipal);
-        border: solid 5px #ffffff;
         border-radius: 10px;
     }
 
