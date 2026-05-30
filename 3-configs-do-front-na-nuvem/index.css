@@ -51,6 +51,7 @@
         margin-bottom: 25px;
         height: 165px;
         top: 0;
+        left: 0;
         position: fixed;
         background-size: cover;
 
@@ -81,7 +82,7 @@
         width: 250px;
         position: relative;
         top: 10px;
-
+        background-color: #23e664;
         z-index: 1;
 
     }
