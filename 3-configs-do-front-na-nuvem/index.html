@@ -112,6 +112,7 @@
 
             document.getElementById("fechar-replay").addEventListener('click', function () {
 
+
                 grid.classList.remove("overlay-videos");
 
                 document.getElementById("fechar-replay").style.display = 'none';
@@ -341,6 +342,8 @@
                     document.getElementById("esconder-horarios").style.display = 'flex';
                     erro.style.display = 'none';
 
+
+
                 }
 
                 if (replays.length >= 1 && quadraSelecionada && horaSelecionada) {
@@ -348,7 +351,7 @@
                     grid.classList.add("overlay-videos");
                     grid.style.display = 'flex';
                     document.getElementById("fechar-replay").style.display = 'block';
-
+                    grid.scrollTop = 0;
                     console.log('ola');
                 }
 
