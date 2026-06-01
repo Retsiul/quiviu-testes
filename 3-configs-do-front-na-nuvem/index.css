@@ -392,11 +392,12 @@
 
     .fechar-replay {
         display: none;
+        background-color: transparent;
         position: absolute;
         z-index: 2;
         top: 22px;
         right: 22px;
-        border: solid 1px var(--corPrincipal);
+        border: solid 2px var(--corPrincipal);
         padding: 10px 20px;
         font-size: 13px;
         border-radius: 6px;
@@ -470,12 +471,9 @@
     }
 
     .msg-vazia {
-        color: #ffaa00;
-        font-weight: bold;
-        background: #000000c0;
+        color: #929292;
+        text-align: center;
         padding: 20px;
-        border-radius: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.16);
     }
 
 
