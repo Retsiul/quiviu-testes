@@ -412,9 +412,19 @@
     }
 
     .video-em-exibicao {
+        position: fixed;
+        z-index: 1;
+        box-shadow: 0 -90px 0 80px rgb(255, 255, 255);
+        left: 0;
         width: 100%;
         aspect-ratio: 16/9;
         background-color: #000;
+    }
+
+    .container-de-cards {
+        position: relative;
+        margin-top: 380px;
+
     }
 
     .card-video {
