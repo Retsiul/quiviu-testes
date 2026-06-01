@@ -69,9 +69,13 @@
             </div>
             <div class="erro-replay" id="erro-replay"></div>
         </div>
-        <div class="grid-replays" id="grid-replays"></div>
+        <div class="grid-replays" id="grid-replays">
+            <div class="video-em-exibicao"></div>
+            <div id="container-de-cards" class="container-de-cards"></div>
 
-        <button class="fechar-replay" id="fechar-replay">fechar</button>
+        </div>
+
+        <button class="fechar-replay" id="fechar-replay">voltar</button>
 
     </div>
 
@@ -300,9 +304,9 @@
 
         async function carregarFiltrados() {
             const grid = document.getElementById("grid-replays");
+            const containerCards = document.getElementById("container-de-cards");
             const erro = document.getElementById("erro-replay");
-
-            grid.innerHTML = "<p>Buscando gravações correspondentes...</p>";
+            containerCards.innerHTML = "<p>Buscando gravações correspondentes...</p>";
 
             try {
 
@@ -319,7 +323,6 @@
                 }
                 // -----------------------------------
 
-                grid.innerHTML = "";
                 if (replays.length === 0 && quadraSelecionada) {
                     erro.innerHTML = `<div class="msg-vazia">Não há gravações nesse periodo!</div>`;
                     erro.style.display = 'block';
@@ -348,28 +351,28 @@
                     console.log('ola');
                 }
 
-
+                containerCards.innerHTML = "";
 
                 replays.forEach(r => {
                     let horaLegivel = r.data_criacao;
                     try { horaLegivel = new Date(r.data_criacao.replace('_', 'T')).toLocaleString("pt-BR"); } catch (e) { }
 
-                    grid.innerHTML += `
+                    containerCards.innerHTML += `
                     <div class="card-video">
                         <video src="${r.url_video}" controls preload="none"></video>
                         <div class="card-corpo">
-                            <div class="card-titulo">${r.quadra.toUpperCase()}</div>
-                            <div style="font-size:13px; color:#fff; margin-top:5px;">${horaLegivel}</div>
+                               <div class="nome-clube">
+                        ${nomeClubeSelecionado}
                         </div>
-
-
-            <div class="nome-clube">
-                ${nomeClubeSelecionado}
-            </div>
+                            <div class="card-infos"><span>${r.quadra}</span><span>${horaLegivel}</span></div>
+                    
+                            </div>
+                      
                     </div>
                 `;
+
                 });
-            } catch (e) { grid.innerHTML = "<p style='color:#ff3333;'>Erro ao carregar dados.</p>"; }
+            } catch (e) { containerCards.innerHTML = "<p style='color:#ff3333;'>Erro ao carregar dados.</p>"; }
         }
     </script>
 </body>
