@@ -71,7 +71,18 @@
         </div>
         <div class="grid-replays" id="grid-replays">
             <div class="div-vazia"></div>
-            <div class="video-em-exibicao"></div>
+            <div class="container-em-exibicao">
+                <video id="video-em-exibicao" src=""></video>
+                <div class="controles-overlay">
+                    <button onclick="voltar()">«</button>
+                    <button onclick="playPause()" id="btnPlay">▶</button>
+                    <button onclick="avancar()">»</button>
+                    <button onclick="toggleFullscreen()">⛶</button>
+                </div>
+
+                <input type="range" id="barra-tempo" value="0" max="100" oninput="mudarTempo(this.value)">
+
+            </div>
             <div id="container-de-cards" class="container-de-cards"></div>
 
         </div>
@@ -111,7 +122,6 @@
             const grid = document.getElementById("grid-replays");
 
             document.getElementById("fechar-replay").addEventListener('click', function () {
-
 
                 grid.classList.remove("overlay-videos");
 
@@ -355,15 +365,21 @@
                     console.log('ola');
                 }
 
+
+
                 containerCards.innerHTML = "";
+
+
 
                 replays.forEach(r => {
                     let horaLegivel = r.data_criacao;
                     try { horaLegivel = new Date(r.data_criacao.replace('_', 'T')).toLocaleString("pt-BR"); } catch (e) { }
 
+
+
                     containerCards.innerHTML += `
-                    <div class="card-video">
-                        <video src="${r.url_video}" controls preload="none"></video>
+                    <div id="card-video" class="card-video" onclick="trocaVideo('${r.url_video}', this)">
+                        <img class="thumb" src="${r.thumbnail_url}" alt="capa do vídeo"/>
                         <div class="card-corpo">
                                <div class="nome-clube">
                         ${nomeClubeSelecionado}
@@ -376,7 +392,75 @@
                 `;
 
                 });
+
+
             } catch (e) { containerCards.innerHTML = "<p style='color:#ff3333;'>Erro ao carregar dados.</p>"; }
+
+
+
+        }
+        function trocaVideo(urlVideo, cardClicado) {
+            const player = document.getElementById("video-em-exibicao")
+            player.src = urlVideo; // Troca o vídeo
+            player.play();
+
+
+            const todosCards = document.querySelectorAll(".card-video")
+            todosCards.forEach(card => {
+                card.classList.remove("ativo")
+            })
+
+            cardClicado.classList.add("ativo")
+        }
+
+        const video = document.getElementById("video-em-exibicao");
+        const barra = document.getElementById("barra-tempo");
+
+        function playPause() {
+            if (video.paused) {
+                video.play();
+                document.getElementById("btnPlay").innerText = "⏸";
+            } else {
+                video.pause();
+                document.getElementById("btnPlay").innerText = "▶";
+            }
+        }
+
+        function avancar() { video.currentTime += 10; }
+        function voltar() { video.currentTime -= 10; }
+
+        // Atualiza a barra automaticamente
+        video.addEventListener("timeupdate", () => {
+            barra.value = (video.currentTime / video.duration) * 100;
+
+            const porcentagem = (video.currentTime / video.duration) * 100;
+
+            // Este comando aplica a cor vermelha apenas na parte percorrida
+            barra.style.background = `linear-gradient(to right, #b2f11d ${porcentagem}%, transparent ${porcentagem}%)`
+        });
+
+        function mudarTempo(valor) {
+            video.currentTime = (valor * video.duration) / 100;
+        }
+
+        function toggleFullscreen() {
+            const wrapper = document.querySelector(".container-em-exibicao");
+
+            if (!document.fullscreenElement) {
+                // Entra em tela cheia
+                if (wrapper.requestFullscreen) {
+                    wrapper.requestFullscreen();
+                } else if (wrapper.webkitRequestFullscreen) { /* Safari */
+                    wrapper.webkitRequestFullscreen();
+                }
+            } else {
+                // Sai da tela cheia
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { /* Safari */
+                    document.webkitExitFullscreen();
+                }
+            }
         }
     </script>
 </body>
