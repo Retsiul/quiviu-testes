@@ -450,7 +450,7 @@
 
     .container-de-cards {
         position: relative;
-
+        padding: 0 5px;
     }
 
     .div-vazia {
