@@ -413,6 +413,11 @@
             } catch (e) { containerCards.innerHTML = "<p style='color:#ff3333;'>Erro ao carregar dados.</p>"; }
 
         }
+
+
+        const video = document.getElementById("video-em-exibicao");
+        const barra = document.getElementById("barra-tempo");
+
         function trocaVideo(urlVideo, cardClicado) {
             const player = document.getElementById("video-em-exibicao")
             player.src = urlVideo; // Troca o vídeo
@@ -429,10 +434,15 @@
             document.querySelector(".div-vazia").style.display = "flex"
 
             playPause()
+
+            barra.value = 0
+
+            const porcentagem = 0
+
+            barra.style.background = `linear-gradient(to right, #b2f11d ${porcentagem}%, transparent ${porcentagem}%)`
+
         }
 
-        const video = document.getElementById("video-em-exibicao");
-        const barra = document.getElementById("barra-tempo");
 
         let timer;
         function playPause() {
@@ -497,12 +507,12 @@
 
         // ---------------------------------------------------------------------
         // Atualiza a barra automaticamente
+
         video.addEventListener("timeupdate", () => {
             barra.value = (video.currentTime / video.duration) * 100;
 
             const porcentagem = (video.currentTime / video.duration) * 100;
 
-            // Este comando aplica a cor vermelha apenas na parte percorrida
             barra.style.background = `linear-gradient(to right, #b2f11d ${porcentagem}%, transparent ${porcentagem}%)`
         });
 
