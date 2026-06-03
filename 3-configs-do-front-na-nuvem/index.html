@@ -420,14 +420,24 @@
         const video = document.getElementById("video-em-exibicao");
         const barra = document.getElementById("barra-tempo");
 
+        let timer;
         function playPause() {
+            clearTimeout(timer);
+
             if (video.paused) {
                 video.play();
                 document.getElementById("btnPlay").src = iconPause;
+
+
+                timer = setTimeout(() => {
+                    document.getElementById("btnPlay").classList.add("invisivel")
+                }, 1500);
             } else {
                 video.pause();
                 document.getElementById("btnPlay").src = iconPlay;
+                document.getElementById("btnPlay").classList.remove("invisivel")
             }
+
         }
 
 

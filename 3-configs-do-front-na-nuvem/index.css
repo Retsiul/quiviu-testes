@@ -544,11 +544,30 @@
         cursor: pointer;
     }
 
+    .controles-overlay button:first-child {
+        width: 100%;
+        height: 100%;
+    }
+
     .controles-overlay button img {
         width: 50px;
         border-radius: 50%;
         object-fit: cover;
         background-color: #000000b9;
+    }
+
+    #btnPlay {
+        /* transition: opacity 0.5s ease; */
+        /* Transição suave de meio segundo */
+        /* opacity: 1; */
+        /* Começa visível */
+    }
+
+    /* Classe para deixar invisível */
+    .invisivel {
+        transition: opacity 1s ease-out;
+        opacity: 0;
+        pointer-events: none;
     }
 
     #fullScreen {
