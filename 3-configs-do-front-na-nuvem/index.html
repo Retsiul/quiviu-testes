@@ -74,10 +74,9 @@
             <div class="container-em-exibicao">
                 <video id="video-em-exibicao" src=""></video>
                 <div class="controles-overlay">
-                    <button onclick="voltar()">«</button>
-                    <button onclick="playPause()" id="btnPlay">▶</button>
-                    <button onclick="avancar()">»</button>
-                    <button onclick="toggleFullscreen()">⛶</button>
+                    <button onclick="playPause()"><img id="btnPlay" src="" alt="play"></button>
+                    <button onclick="toggleFullscreen()" id="fullScreen"><img src="assets/full-screen-icon.svg"
+                            alt="full screen"></button>
                 </div>
 
                 <input type="range" id="barra-tempo" value="0" max="100" oninput="mudarTempo(this.value)">
@@ -102,6 +101,11 @@
         let dataSelecionada = "";
         let horaSelecionada = "";
         let replays = [];
+
+        const iconPlay = "assets/play-icon.svg"
+        const iconPause = "assets/pause-icon.svg"
+
+
         const API_BASE_URL = "https://api.quiviu.com.br";
 
         window.onload = function () {
@@ -419,15 +423,13 @@
         function playPause() {
             if (video.paused) {
                 video.play();
-                document.getElementById("btnPlay").innerText = "⏸";
+                document.getElementById("btnPlay").src = iconPause;
             } else {
                 video.pause();
-                document.getElementById("btnPlay").innerText = "▶";
+                document.getElementById("btnPlay").src = iconPlay;
             }
         }
 
-        function avancar() { video.currentTime += 10; }
-        function voltar() { video.currentTime -= 10; }
 
         // Atualiza a barra automaticamente
         video.addEventListener("timeupdate", () => {
