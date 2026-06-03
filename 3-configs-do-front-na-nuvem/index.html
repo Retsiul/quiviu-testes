@@ -74,7 +74,7 @@
             <div class="container-em-exibicao">
                 <video id="video-em-exibicao" src=""></video>
                 <div class="controles-overlay">
-                    <button onclick="playPause()"><img id="btnPlay" src="" alt="play"></button>
+                    <button onclick="playPause()"><img class="inicio-play" id="btnPlay" src="" alt="play"></button>
                     <button onclick="toggleFullscreen()" id="fullScreen"><img src="assets/full-screen-icon.svg"
                             alt="full screen"></button>
                 </div>
@@ -431,11 +431,18 @@
 
                 timer = setTimeout(() => {
                     document.getElementById("btnPlay").classList.add("invisivel")
+                    document.querySelector(".inicio-play").style.opacity = "0"
+                    document.querySelector(".inicio-play").style.transition = "opacity 1s ease";
                 }, 1500);
             } else {
                 video.pause();
                 document.getElementById("btnPlay").src = iconPlay;
-                document.getElementById("btnPlay").classList.remove("invisivel")
+                document.querySelector(".inicio-play").style.opacity = "1"
+                document.querySelector(".inicio-play").style.transition = "opacity 0s ease";
+
+
+
+
             }
 
         }

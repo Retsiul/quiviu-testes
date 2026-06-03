@@ -556,18 +556,8 @@
         background-color: #000000b9;
     }
 
-    #btnPlay {
-        /* transition: opacity 0.5s ease; */
-        /* Transição suave de meio segundo */
-        /* opacity: 1; */
-        /* Começa visível */
-    }
-
-    /* Classe para deixar invisível */
-    .invisivel {
-        transition: opacity 1s ease-out;
+    .inicio-play {
         opacity: 0;
-        pointer-events: none;
     }
 
     #fullScreen {
