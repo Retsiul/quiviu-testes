@@ -314,11 +314,6 @@
 
         function mudarData() {
             dataSelecionada = document.getElementById("filtro-calendario").value;
-
-
-
-
-
             carregarFiltrados();
 
         }
@@ -435,10 +430,12 @@
             if (video.paused) {
                 video.play();
                 document.getElementById("btnPlay").src = iconPause;
+                document.querySelector(".inicio-play").classList.remove("fixo")
+                document.querySelector(".inicio-play").style.opacity = "1"
+
 
 
                 timer = setTimeout(() => {
-                    document.getElementById("btnPlay").classList.add("invisivel")
                     document.querySelector(".inicio-play").style.opacity = "0"
                     document.querySelector(".inicio-play").style.transition = "opacity 1s ease";
                 }, 1500);
@@ -447,6 +444,8 @@
                 document.getElementById("btnPlay").src = iconPlay;
                 document.querySelector(".inicio-play").style.opacity = "1"
                 document.querySelector(".inicio-play").style.transition = "opacity 0s ease";
+                document.querySelector(".inicio-play").classList.add("fixo")
+                document.querySelector(".fixo").style.display = "block"
 
 
 
@@ -454,8 +453,38 @@
             }
 
         }
+        // --------------------------------------------------------------------
+        let estaLigado = false;
+        const pai = document.querySelector(".controles-overlay");
+
+        pai.addEventListener("click", function (event) {
+            // Verifica se o elemento clicado é o próprio pai
+            if (event.target === this) {
+                estaLigado = !estaLigado;
+                console.log("Estado atual:", estaLigado);
+
+            } else {
+                console.log("Clicou em um filho. Ignorando...");
+            }
+
+            if (estaLigado === true) {
+                document.querySelector(".fixo").style.display = "block"
+                console.log("estou sendo mostrado")
+            }
+
+            if (estaLigado === false && document.querySelector(".inicio-play").classList.contains("fixo")) {
+                console.log("estou sendo escondido")
+                document.querySelector(".fixo").style.display = "none"
+
+            }
+            if (estaLigado === false && document.querySelector(".inicio-play").classList.contains("fixo") === false) {
+                estaLigado = true
+            }
 
 
+        });
+
+        // ---------------------------------------------------------------------
         // Atualiza a barra automaticamente
         video.addEventListener("timeupdate", () => {
             barra.value = (video.currentTime / video.duration) * 100;
