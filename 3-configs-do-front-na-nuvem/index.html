@@ -137,6 +137,12 @@
 
                 horaSelecionada = "";
 
+                document.getElementById("video-em-exibicao").src = ""
+
+
+                document.querySelector(".container-em-exibicao").style.display = "none"
+                document.querySelector(".div-vazia").style.display = "none"
+
                 carregarFiltrados();
 
             });
@@ -418,6 +424,11 @@
             })
 
             cardClicado.classList.add("ativo")
+
+            document.querySelector(".container-em-exibicao").style.display = "flex"
+            document.querySelector(".div-vazia").style.display = "flex"
+
+            playPause()
         }
 
         const video = document.getElementById("video-em-exibicao");
