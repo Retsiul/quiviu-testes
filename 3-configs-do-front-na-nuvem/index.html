@@ -135,16 +135,7 @@
 
                 replays.length = 0;
 
-                quadraSelecionada = "";
                 horaSelecionada = "";
-
-                // remove ativo das quadras
-                document.querySelectorAll("#grupo-quadras .btn-opcao")
-                    .forEach(b => b.classList.remove("ativo"));
-
-                // remove ativo dos horários
-                document.querySelectorAll("#grupo-horarios .btn-opcao")
-                    .forEach(b => b.classList.remove("ativo"));
 
                 carregarFiltrados();
 
@@ -274,6 +265,22 @@
             await carregarQuadrasDoClube(id);
 
             carregarFiltrados();
+
+            // Luis mexeu aqui
+            document.getElementById("esconder-horarios").style.display = 'none';
+
+            const erro = document.getElementById("erro-replay");
+            erro.innerHTML = ""
+
+            const quadraAtiva = document.querySelectorAll(".btn-quadras")
+            quadraAtiva.forEach(quadra => {
+                if (quadra.classList.contains("ativo")) {
+                    quadra.classList.remove("ativo")
+                }
+            })
+
+            quadraSelecionada = "";
+
         }
 
         // Busca as quadras vinculadas a este clube específico no banco de dados da nuvem
@@ -307,7 +314,13 @@
 
         function mudarData() {
             dataSelecionada = document.getElementById("filtro-calendario").value;
+
+
+
+
+
             carregarFiltrados();
+
         }
 
         function mudarHora(hora, botao) {
@@ -350,14 +363,18 @@
                 }
 
                 // luis alterou aqui
+                const containerHorarios = document.querySelector(".container-horarios")
+                const quadraAtiva = document.querySelectorAll(".btn-quadras")
+                quadraAtiva.forEach(quadra => {
+                    if (quadra.classList.contains("ativo")) {
+                        containerHorarios.style.display = "flex"
 
+                    }
+                })
 
-                if (replays.length >= 1) {
+                if (replays.length >= 1 && quadraSelecionada) {
                     document.getElementById("esconder-horarios").style.display = 'flex';
                     erro.style.display = 'none';
-
-
-
                 }
 
                 if (replays.length >= 1 && quadraSelecionada && horaSelecionada) {
@@ -369,17 +386,11 @@
                     console.log('ola');
                 }
 
-
-
                 containerCards.innerHTML = "";
-
-
 
                 replays.forEach(r => {
                     let horaLegivel = r.data_criacao;
                     try { horaLegivel = new Date(r.data_criacao.replace('_', 'T')).toLocaleString("pt-BR"); } catch (e) { }
-
-
 
                     containerCards.innerHTML += `
                     <div id="card-video" class="card-video" onclick="trocaVideo('${r.url_video}', this)">
@@ -400,14 +411,11 @@
 
             } catch (e) { containerCards.innerHTML = "<p style='color:#ff3333;'>Erro ao carregar dados.</p>"; }
 
-
-
         }
         function trocaVideo(urlVideo, cardClicado) {
             const player = document.getElementById("video-em-exibicao")
             player.src = urlVideo; // Troca o vídeo
             player.play();
-
 
             const todosCards = document.querySelectorAll(".card-video")
             todosCards.forEach(card => {
