@@ -247,6 +247,12 @@
 
     }
 
+    .secao .busca ul li img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+    }
+
     ul#lista-sugestoes::-webkit-scrollbar {
         background-color: #ffffff;
         width: 3px;
@@ -278,7 +284,7 @@
         width: 100%;
     }
 
-    .clube>img {
+    .clube span img {
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -396,9 +402,9 @@
         background-color: transparent;
         position: absolute;
         z-index: 2;
-        top: 22px;
-        right: 22px;
-        border: solid 2px var(--corPrincipal);
+        top: 16.5px;
+        right: 10px;
+        border: solid 1px var(--corPrincipal);
         padding: 10px 20px;
         font-size: 13px;
         border-radius: 6px;
@@ -406,6 +412,11 @@
         cursor: pointer;
         gap: 7px;
         transition: 0.2s;
+        justify-items: center;
+        align-items: center;
+        text-align: justify;
+
+
     }
 
     .fechar-replay img {
@@ -492,6 +503,14 @@
 
     .nome-clube {
         font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nome-clube img {
+        width: 35px;
+        border-radius: 50%;
     }
 
     .card-infos {

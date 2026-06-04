@@ -32,9 +32,9 @@
 
                 <div id="painel-clube-atual" class="oculto">
                     <div class="clube">
-                        <img src="https://img.magnific.com/vetores-gratis/modelo-de-logotipo-de-clube-de-esporte-vintage-desenhado-a-mao_23-2149485243.jpg"
-                            alt="">
+                        <span id="logo-clube"></span>
                         <div>
+
                             <h2 id="nome-clube-titulo">
                                 Clube Selecionado
 
@@ -86,7 +86,7 @@
 
         </div>
 
-        <button class="fechar-replay" id="fechar-replay">Voltar</button>
+        <button class="fechar-replay" id="fechar-replay"><img src="assets/back-icon.svg" alt="voltar"> Voltar</button>
 
     </div>
 
@@ -181,10 +181,8 @@
                     if (clubes.length > 0) {
                         clubes.forEach(clube => {
                             const li = document.createElement("li");
-                            li.textContent = clube.nome;
                             // luis mexeu aqui
-                            li.innerHTML = `   <img style="width: 35px;height: 35px;border-radius: 50%;"src="https://img.magnific.com/vetores-gratis/modelo-de-logotipo-de-clube-de-esporte-vintage-desenhado-a-mao_23-2149485243.jpg"
-                            alt=""> ${clube.nome}`
+                            li.innerHTML = `   <img src="${clube.logo_url}" alt=""> ${clube.nome}`
                             // 
                             li.style.padding = "10px";
                             li.style.cursor = "pointer";
@@ -192,7 +190,7 @@
                             li.addEventListener("click", () => {
                                 inputBusca.value = clube.nome;
                                 listaSugestoes.style.display = "none";
-                                selecionarClube(clube.id, clube.nome);
+                                selecionarClube(clube.id, clube.nome, clube.logo_url);
                                 inputBusca.value = "";
                             });
                             listaSugestoes.appendChild(li);
@@ -255,10 +253,11 @@
 
 
         // Executado quando um clube é clicado na lista de sugestões
-        async function selecionarClube(id, nome) {
+        async function selecionarClube(id, nome, logo) {
             clubeSelecionadoId = id;
             nomeClubeSelecionado = nome;
-
+            logoDoClube = logo
+            document.getElementById("logo-clube").innerHTML = `<img src="${logo}" alt="${nome}"/>`;
             document.getElementById("nome-clube-titulo").innerText = nome;
             document.getElementById("nome-cidade").innerHTML = ' <img class="icon-local" src="assets/icon-local.svg" alt = "cidade" /> são benedito-ce';
             document.getElementById("painel-clube-atual").classList.remove("oculto");
@@ -382,7 +381,7 @@
 
                     grid.classList.add("overlay-videos");
                     grid.style.display = 'flex';
-                    document.getElementById("fechar-replay").style.display = 'block';
+                    document.getElementById("fechar-replay").style.display = 'flex';
                     grid.scrollTop = 0;
                     console.log('ola');
                 }
@@ -398,8 +397,8 @@
                         <img class="thumb" src="${r.thumbnail_url}" alt="capa do vídeo"/>
                         <div class="card-corpo">
                                <div class="nome-clube">
-                        ${nomeClubeSelecionado}
-                        </div>
+                                <img src="${logoDoClube}" alt="${nomeClubeSelecionado}"/>
+                                ${nomeClubeSelecionado}</div>
                             <div class="card-infos"><span>${r.quadra}</span><span>${horaLegivel}</span></div>
                     
                             </div>
