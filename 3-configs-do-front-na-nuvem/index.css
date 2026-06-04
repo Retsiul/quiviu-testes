@@ -486,12 +486,15 @@
 
     .card-video.ativo {
         margin: 10px;
-        background-color: rgb(0, 0, 0);
-        color: #fff;
+        background-color: rgb(245, 255, 223);
+
+        color: #424242;
     }
 
     .card-video.ativo .card-infos {
-        color: var(--corPrincipal);
+        color: #424242;
+
+
     }
 
     .card-corpo {
