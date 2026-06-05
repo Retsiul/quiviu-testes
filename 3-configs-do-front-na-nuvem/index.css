@@ -500,15 +500,14 @@
     }
 
     .card-video.ativo {
-        background-color: rgb(244, 255, 231);
+        background-image: linear-gradient(rgb(255, 255, 255) 50%, rgb(249, 255, 243) 50%);
         padding: 8px;
         color: #fff;
         height: fit-content;
     }
 
     .card-video.ativo .card-infos {
-        color: var(--corPrincipal);
-
+        border-color: #fff;
 
     }
 
