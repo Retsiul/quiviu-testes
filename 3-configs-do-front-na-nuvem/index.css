@@ -400,7 +400,7 @@
     .fechar-replay {
         display: none;
         background-color: transparent;
-        position: absolute;
+        position: fixed;
         z-index: 2;
         top: 16.5px;
         right: 10px;
