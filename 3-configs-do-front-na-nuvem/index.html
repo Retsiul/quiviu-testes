@@ -410,9 +410,9 @@
                     let horaLegivel = r.data_criacao;
                     try {
                         const data = new Date(r.data_criacao.replace('_', 'T'));
-                        horaLegivel =
+                        horaLegivel = 'às ' +
                             String(data.getHours()).padStart(2, '0') +
-                            ':' +
+                            'h' +
                             String(data.getMinutes()).padStart(2, '0');
                     } catch (e) { }
 

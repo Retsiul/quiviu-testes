@@ -564,10 +564,12 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        text-transform: lowercase;
     }
 
     .card-infos span:first-child {
         margin-bottom: 10px;
+        text-transform: capitalize;
         color: #000;
         font-weight: bold;
     }
