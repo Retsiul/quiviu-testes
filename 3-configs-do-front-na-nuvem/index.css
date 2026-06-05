@@ -485,10 +485,26 @@
 
     }
 
+    #nome-clube {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 5px 20px;
+        font-weight: 500;
+    }
+
+    #nome-clube img {
+        object-fit: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
     .card-video {
         border-radius: 6px;
         flex: 0 0 auto;
         width: 175px;
+        height: fit-content;
         display: flex;
         flex-direction: column;
         gap: 15px;

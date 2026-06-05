@@ -21,6 +21,7 @@
         <!-- - -->
         <div class="viewport">
             <div class="container-secao">
+                <!-- --------------------------------- -->
                 <div class="secao">
                     <h3>Buscar Clube</h3>
                     <div class="busca">
@@ -29,8 +30,10 @@
                         </ul>
                     </div>
                 </div>
+                <!-- --------------------------------- -->
 
                 <div id="painel-clube-atual" class="oculto">
+                    <!-- --------------------------------- -->
                     <div class="clube">
                         <span id="logo-clube"></span>
                         <div>
@@ -44,35 +47,45 @@
                             </p>
                         </div>
                     </div>
-
+                    <!-- --------------------------------- -->
                     <div class="secao ">
-
-
                         <label><strong>Dia</strong></label>
                         <input type="date" id="filtro-calendario" onchange="mudarData()">
                     </div>
+                    <!-- --------------------------------- -->
 
                     <div class="secao">
                         <label><strong>Quadras </strong> <img src="assets/soccer-icon.svg" alt=""></label>
                         <div class="btn-grupo container-quadras" id="grupo-quadras"></div>
                     </div>
-
-
+                    <!-- --------------------------------- -->
 
                     <div class="secao" id="esconder-horarios">
                         <label><strong>Horário</strong><img src="assets/clock-icon.svg" alt=""> </label>
                         <div class="container-horarios" id="grupo-horarios"></div>
                     </div>
+                    <!-- --------------------------------- -->
 
                 </div>
+                <!-- --------------------------------- -->
 
             </div>
+            <!-- --------------------------------- -->
+
             <div class="erro-replay" id="erro-replay"></div>
+            <!-- --------------------------------- -->
+
         </div>
+        <!-- --------------------------------- -->
+
         <div class="grid-replays" id="grid-replays">
+
             <div class="div-vazia"></div>
+            <!-- --------------------------------- -->
+
             <div class="container-em-exibicao">
                 <video id="video-em-exibicao" src=""></video>
+
                 <div class="controles-overlay">
                     <button onclick="playPause()"><img class="inicio-play" id="btnPlay" src="" alt="play"></button>
                     <button onclick="toggleFullscreen()" id="fullScreen"><img src="assets/full-screen-icon.svg"
@@ -82,6 +95,8 @@
                 <input type="range" id="barra-tempo" value="0" max="100" oninput="mudarTempo(this.value)">
 
             </div>
+            <!-- --------------------------------- -->
+            <div id="nome-clube"></div>
             <div id="container-de-cards" class="container-de-cards"></div>
 
         </div>
@@ -221,7 +236,6 @@
                     return String(data.getHours()).padStart(2, '0');
                 })
             )];
-
             // ordena
             horasUnicas.sort();
 
@@ -337,6 +351,7 @@
             const erro = document.getElementById("erro-replay");
             containerCards.innerHTML = "<p>Buscando gravações correspondentes...</p>";
 
+
             try {
 
                 let url = `${API_BASE_URL}/api/replays?clubeId=${clubeSelecionadoId}&data=${dataSelecionada}`;
@@ -386,12 +401,20 @@
                     console.log('ola');
                 }
 
+                document.getElementById("nome-clube").innerHTML = `<img src="${logoDoClube}" alt="logo"/>${nomeClubeSelecionado}`
+
                 containerCards.innerHTML = "";
 
 
                 replays.forEach(r => {
                     let horaLegivel = r.data_criacao;
-                    try { horaLegivel = new Date(r.data_criacao.replace('_', 'T')).toLocaleString("pt-BR"); } catch (e) { }
+                    try {
+                        const data = new Date(r.data_criacao.replace('_', 'T'));
+                        horaLegivel =
+                            String(data.getHours()).padStart(2, '0') +
+                            ':' +
+                            String(data.getMinutes()).padStart(2, '0');
+                    } catch (e) { }
 
                     containerCards.innerHTML += `
                     <div id="card-video" class="card-video" onclick="trocaVideo('${r.url_video}', this); trocaThumb('${r.thumbnail_url}')">
