@@ -388,18 +388,19 @@
 
                 containerCards.innerHTML = "";
 
+
                 replays.forEach(r => {
                     let horaLegivel = r.data_criacao;
                     try { horaLegivel = new Date(r.data_criacao.replace('_', 'T')).toLocaleString("pt-BR"); } catch (e) { }
 
                     containerCards.innerHTML += `
-                    <div id="card-video" class="card-video" onclick="trocaVideo('${r.url_video}', this)">
+                    <div id="card-video" class="card-video" onclick="trocaVideo('${r.url_video}', this); trocaThumb('${r.thumbnail_url}')">
                         <img class="thumb" src="${r.thumbnail_url}" alt="capa do vídeo"/>
                         <div class="card-corpo">
                                <div class="nome-clube">
                                 <img src="${logoDoClube}" alt="${nomeClubeSelecionado}"/>
                                 ${nomeClubeSelecionado}</div>
-                            <div class="card-infos"><span>${r.quadra}</span><span>${horaLegivel}</span></div>
+                            <div class="card-infos"><span>${r.quadra}<img src="assets/soccer-icon.svg" alt=""></span><span>${horaLegivel}<img src="assets/clock-icon.svg" alt=""></span></div>
                     
                             </div>
                       
@@ -417,10 +418,17 @@
         const video = document.getElementById("video-em-exibicao");
         const barra = document.getElementById("barra-tempo");
 
+        function trocaThumb(thumb) {
+            document.querySelector(".container-em-exibicao").style.backgroundImage = `url(${thumb})`;
+        }
+
         function trocaVideo(urlVideo, cardClicado) {
+
             const player = document.getElementById("video-em-exibicao")
             player.src = urlVideo; // Troca o vídeo
             player.play();
+
+
 
             const todosCards = document.querySelectorAll(".card-video")
             todosCards.forEach(card => {
