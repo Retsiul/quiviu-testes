@@ -393,7 +393,7 @@
         top: -20px;
         display: flex;
         flex-direction: column;
-        padding: 80px 0;
+        padding-top: 80px;
         height: 100vh;
     }
 
@@ -467,10 +467,11 @@
 
     .container-de-cards {
         position: relative;
+        flex-wrap: nowrap;
+        overflow-x: auto;
         display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding: 0 5px;
+        gap: 20px;
+        padding: 20px 20px;
     }
 
     .div-vazia {
@@ -485,15 +486,24 @@
     }
 
     .card-video {
+        border-radius: 6px;
+        flex: 0 0 auto;
+        width: 175px;
         display: flex;
+        flex-direction: column;
         gap: 15px;
         padding: 4px;
+        box-shadow:
+            0 -80px 10px 1px rgb(255, 255, 255),
+            0 4px 5px 0 rgb(230, 230, 230);
+
     }
 
     .card-video.ativo {
-        background-color: rgb(0, 0, 0);
+        background-color: rgb(244, 255, 231);
         padding: 8px;
         color: #fff;
+        height: fit-content;
     }
 
     .card-video.ativo .card-infos {
@@ -503,7 +513,7 @@
     }
 
     .card-corpo {
-        width: 50%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -528,6 +538,7 @@
         font-size: 13px;
         font-weight: 400;
         color: rgb(134, 134, 134);
+        border-top: solid 3px var(--corPrincipal);
     }
 
     .card-infos img {
@@ -542,13 +553,13 @@
 
     .card-infos span:first-child {
         margin-bottom: 10px;
+        color: #000;
+        font-weight: bold;
     }
 
     .thumb {
-        top: 0;
-        left: 0;
-        aspect-ratio: 16/9;
-        width: 50%;
+        aspect-ratio: 3/2;
+        width: 100%;
         border-radius: 6px;
         display: block;
         object-fit: cover;
