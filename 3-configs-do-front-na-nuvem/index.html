@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
     <title>Quiviu</title>
 </head>
 <body>
@@ -48,9 +50,10 @@
                         </div>
                     </div>
                     <!-- --------------------------------- -->
-                    <div class="secao ">
-                        <label><strong>Dia</strong></label>
-                        <input type="date" id="filtro-calendario" onchange="mudarData()">
+                    <div class="secao calendario">
+
+                        <input type="text" id="filtro-calendario" placeholder="Quando você jogou?"
+                            onchange="mudarData()" />
                     </div>
                     <!-- --------------------------------- -->
 
@@ -104,6 +107,21 @@
         <button class="fechar-replay" id="fechar-replay"><img src="assets/back-icon.svg" alt="voltar"> Voltar</button>
 
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
+
+    <script>
+
+        flatpickr("#filtro-calendario", {
+            locale: "pt",
+            altInput: true,
+            altFormat: "d/ m/ Y",
+            dateFormat: "Y-m-d",
+            clickOpens: true,
+            disableMobile: true
+        });
+    </script>
 
     <script>
 

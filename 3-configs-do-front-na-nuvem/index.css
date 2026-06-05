@@ -310,9 +310,8 @@
         object-fit: cover;
     }
 
-    select,
-    input[type="date"] {
-        background: #ffffff;
+    .calendario input[type="text"] {
+        background: #ffffff00;
         color: #000000;
         padding: 10px;
         outline: none;
@@ -324,9 +323,32 @@
         font-size: 12px;
         font-family: sans-serif;
         font-weight: 600;
+        z-index: 2;
+
     }
 
+    .calendario input[type="text"]:hover {
+        outline: solid 2px var(--corPrincipal);
+        border: none;
+    }
 
+    .calendario {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .calendario::after {
+        position: absolute;
+        content: '';
+        border-radius: 4px;
+        padding: 10px;
+        width: calc((100% - 52px));
+        height: calc((100% - 52px));
+        background-color: #ffffff;
+        z-index: 1;
+    }
 
 
     .btn-opcao {
