@@ -467,27 +467,30 @@
 
     .container-em-exibicao:-webkit-full-screen {
         width: 100%;
-        aspect-ratio: 16/14;
         height: 100vh;
     }
 
 
 
     .container-em-exibicao:fullscreen {
-        width: 100vw;
-        height: 100vh;
+        width: 100vh;
+        height: 100vw;
         display: flex;
         align-items: center;
         justify-content: center;
         background-color: black;
+        transform-origin: center center;
     }
 
     /* Garante que o vídeo dentro também se ajuste */
     .container-em-exibicao:fullscreen #video-em-exibicao {
-        width: 100%;
-        height: 100%;
+        transform: rotate(90deg);
+        width: 100vh;
+        height: 100vw;
         object-fit: contain;
     }
+
+
 
 
 
@@ -782,23 +785,9 @@
 
 }
 
-.container-em-exibicao:fullscreen {
+.container-em-exibicao:fullscreen .controles-overlay button img {
+    /* position: absolute; */
 
-    .controles-overlay,
-    #barra-tempo {
-        position: absolute;
-        background-color: red;
-        border: none;
-        width: 100px;
-        height: 100px;
-        cursor: pointer;
-    }
-
-    #video-em-exibicao {
-        transform: rotate(90deg);
-        object-fit: contain;
-        height: 100vh;
-        width: 100%;
-    }
-
+    transform: rotate(90deg);
+    background-color: #000;
 }
