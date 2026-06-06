@@ -471,7 +471,10 @@
         height: 100vh;
     }
 
+
+
     .container-em-exibicao:fullscreen {
+        transform: rotate(90deg);
         width: 100vw;
         height: 100vh;
         display: flex;

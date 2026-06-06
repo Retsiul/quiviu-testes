@@ -584,6 +584,16 @@
                 }
             }
         }
+
+        const container = document.querySelector(".container-em-exibicao");
+
+        document.addEventListener("fullscreenchange", () => {
+            if (document.fullscreenElement) {
+                console.log("Entrou em tela cheia: Aplicando rotação.");
+            } else {
+                console.log("Saiu da tela cheia: Removendo rotação.");
+            }
+        });
     </script>
 </body>
 </html>
