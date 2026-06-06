@@ -485,8 +485,8 @@
 
     /* Garante que o vídeo dentro também se ajuste */
     .container-em-exibicao:fullscreen #video-em-exibicao {
-        width: 100%;
-        height: 100%;
+        width: 100vh;
+        height: 100vw;
         object-fit: contain;
     }
 
