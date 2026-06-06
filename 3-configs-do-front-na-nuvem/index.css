@@ -721,6 +721,7 @@
 @media (orientation: landscape) {
 
     .container-em-exibicao {
+        /* transform: rotate(90deg); */
         position: fixed;
         z-index: 1;
         box-shadow: 0 -90px 0 80px rgb(255, 255, 255);
@@ -740,6 +741,7 @@
         width: 100vw;
         position: relative;
         top: 0px;
+        left: 0;
         backdrop-filter: blur(40px);
         -webkit-backdrop-filter: blur(40px);
         background: rgba(255, 255, 255, 0.267);
@@ -752,16 +754,15 @@
     }
 
 
-
+    /* 
     .container-em-exibicao:fullscreen {
-        transform: rotate(90deg);
         width: 100vw;
         height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         background-color: black;
-    }
+    } */
 
     /* Garante que o vídeo dentro também se ajuste */
     .container-em-exibicao:fullscreen #video-em-exibicao {
@@ -770,12 +771,14 @@
         object-fit: contain;
     }
 
-    /* .controles-overlay {
+    .controles-overlay,
+    #barra-tempo {
+        position: absolute;
         background-color: red;
         border: none;
         width: 100px;
-        height: 10px;
+        height: 100px;
         cursor: pointer;
-    } */
+    }
 
 }
