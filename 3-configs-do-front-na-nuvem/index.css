@@ -460,9 +460,6 @@
 
     .container-em-exibicao video {
         width: 100%;
-        backdrop-filter: blur(40px);
-        -webkit-backdrop-filter: blur(40px);
-        background: rgba(255, 255, 255, 0.267);
     }
 
     .container-em-exibicao:-webkit-full-screen {
@@ -473,17 +470,19 @@
 
 
     .container-em-exibicao:fullscreen {
-        width: 100vh;
-        height: 100vw;
+        width: 100vw;
+        height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         background-color: black;
         transform-origin: center center;
+
     }
 
     /* Garante que o vídeo dentro também se ajuste */
     .container-em-exibicao:fullscreen #video-em-exibicao {
+        transition: transform 0.1s ease-in-out;
         transform: rotate(90deg);
         width: 100vh;
         height: 100vw;
