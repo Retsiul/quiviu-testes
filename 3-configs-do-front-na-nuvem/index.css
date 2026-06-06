@@ -490,6 +490,8 @@
         object-fit: contain;
     }
 
+
+
     .container-de-cards {
         position: relative;
         flex-wrap: nowrap;
@@ -715,3 +717,65 @@
 
 /* celular pequeno */
 @media (max-width: 480px) {}
+
+@media (orientation: landscape) {
+
+    .container-em-exibicao {
+        position: fixed;
+        z-index: 1;
+        box-shadow: 0 -90px 0 80px rgb(255, 255, 255);
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 16/9;
+        background-color: #000;
+        background-size: cover;
+        display: none;
+        background-image: none;
+
+    }
+
+    .container-em-exibicao video {
+        width: 100vw;
+        position: relative;
+        top: 0px;
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        background: rgba(255, 255, 255, 0.267);
+    }
+
+    .container-em-exibicao:-webkit-full-screen {
+        width: 100vw;
+        aspect-ratio: 16/14;
+        height: 100vh;
+    }
+
+
+
+    .container-em-exibicao:fullscreen {
+        transform: rotate(90deg);
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+    }
+
+    /* Garante que o vídeo dentro também se ajuste */
+    .container-em-exibicao:fullscreen #video-em-exibicao {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    /* .controles-overlay {
+        background-color: red;
+        border: none;
+        width: 100px;
+        height: 10px;
+        cursor: pointer;
+    } */
+
+}
