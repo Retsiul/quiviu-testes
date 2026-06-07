@@ -502,7 +502,7 @@
     }
 
     .container-em-exibicao:fullscreen #fullScreen {
-        right: 10px;
+        right: 20px;
         bottom: 30px;
     }
 
@@ -512,9 +512,9 @@
         transform-origin: left bottom;
         position: absolute;
         left: 10px;
-        top: 0;
+        top: 10px;
         height: 8px;
-        width: calc(100vh - 20px);
+        width: calc(100vh - 40px);
     }
 
 
