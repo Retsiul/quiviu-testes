@@ -497,8 +497,9 @@
     .container-em-exibicao:fullscreen .controles-overlay {
         width: 100vh;
         height: 100vw;
+        transition: transform 0.3s ease-in-out;
+        transform-origin: center center;
         transform: rotate(90deg);
-        /* background-color: #000; */
     }
 
     .container-em-exibicao:fullscreen #fullScreen {
