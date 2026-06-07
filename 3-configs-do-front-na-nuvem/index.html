@@ -14,7 +14,7 @@
 
             <div>
                 <h1><img src="assets/logo.png" alt="logo quiviu"></h1>
-                <small id="boas-vindas">Olá, Usuário</small>
+                <small style="display: none;" id="boas-vindas">Olá, Usuário</small>
             </div>
             <button class="logout" onclick="logout()">
                 <img src="assets/exit-icon.svg" alt="sair">
@@ -97,6 +97,9 @@
 
                 <input type="range" id="barra-tempo" value="0" max="100" oninput="mudarTempo(this.value)">
 
+                <div class="acoes-video">
+                    <a id="btn-download" href="">Baixar Vídeo</a>
+                </div>
             </div>
             <!-- --------------------------------- -->
             <div id="nome-clube"></div>
@@ -463,8 +466,6 @@
             player.src = urlVideo; // Troca o vídeo
             player.play();
 
-
-
             const todosCards = document.querySelectorAll(".card-video")
             todosCards.forEach(card => {
                 card.classList.remove("ativo")
@@ -475,13 +476,18 @@
             document.querySelector(".container-em-exibicao").style.display = "flex"
             document.querySelector(".div-vazia").style.display = "flex"
 
-            playPause()
 
             barra.value = 0
 
             const porcentagem = 0
 
             barra.style.background = `linear-gradient(to right, #b2f11d ${porcentagem}%, transparent ${porcentagem}%)`
+
+            const linkDownload = document.getElementById("btn-download");
+
+            // Atualiza o link de download com a mesma URL
+            linkDownload.href = urlVideo;
+
 
         }
 
@@ -533,6 +539,7 @@
             if (estaLigado === true) {
                 document.querySelector(".fixo").style.display = "block"
                 console.log("estou sendo mostrado")
+
             }
 
             if (estaLigado === false && document.querySelector(".inicio-play").classList.contains("fixo")) {
@@ -561,6 +568,11 @@
         function mudarTempo(valor) {
             video.currentTime = (valor * video.duration) / 100;
         }
+        // --------------------------------------------------------------------
+
+
+
+        // --------------------------------------------------------------------
 
         function toggleFullscreen() {
             const wrapper = document.querySelector(".container-em-exibicao");
@@ -592,6 +604,7 @@
                 console.log("Saiu da tela cheia: Removendo rotação.");
             }
         });
+
     </script>
 </body>
 </html>

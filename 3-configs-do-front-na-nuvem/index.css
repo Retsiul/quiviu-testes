@@ -486,7 +486,7 @@
 
     /* Garante que o vídeo dentro também se ajuste */
     .container-em-exibicao:fullscreen #video-em-exibicao {
-        transition: transform 0.3s ease-in-out;
+        transition: transform 0.1s ease-in-out;
         transform-origin: center center;
         transform: rotate(90deg);
         width: 100vh;
@@ -497,7 +497,7 @@
     .container-em-exibicao:fullscreen .controles-overlay {
         width: 100vh;
         height: 100vw;
-        transition: transform 0.3s ease-in-out;
+        transition: transform 0.1s ease-in-out;
         transform-origin: center center;
         inset: auto;
         transform: rotate(90deg);
@@ -517,7 +517,7 @@
         position: absolute;
         left: 10px;
         top: 10px;
-        height: 8px;
+        height: 5px;
         width: calc(100vh - 40px);
     }
 
@@ -710,7 +710,29 @@
         background-color: transparent
     }
 
+    /* --------------------------------------------------- */
 
+    .acoes-video {
+        position: absolute;
+        top: -60px;
+        left: 10px;
+        gap: 15px;
+        z-index: 1000;
+        background-color: transparent;
+        border: solid 1px var(--corPrincipal);
+        padding: 10px 20px;
+        font-size: 13px;
+        border-radius: 6px;
+        font-weight: bold;
+
+    }
+
+    .acoes-video a {
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+    }
+
+    /* --------------------------------------------------- */
     /* Estilizando a bolinha que se move */
     #barra-tempo::-webkit-slider-thumb {
         -webkit-appearance: none;
