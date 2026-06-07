@@ -462,6 +462,8 @@
         width: 100%;
     }
 
+    /* ----------------------------------------------------------- */
+
     .container-em-exibicao:-webkit-full-screen {
         width: 100%;
         height: 100vh;
@@ -476,22 +478,48 @@
         align-items: center;
         justify-content: center;
         background-color: black;
-        transform-origin: center center;
+        position: relative;
 
     }
 
+
+
     /* Garante que o vídeo dentro também se ajuste */
     .container-em-exibicao:fullscreen #video-em-exibicao {
-        transition: transform 0.1s ease-in-out;
+        transition: transform 0.3s ease-in-out;
+        transform-origin: center center;
         transform: rotate(90deg);
         width: 100vh;
         height: 100vw;
         object-fit: contain;
     }
 
+    .container-em-exibicao:fullscreen .controles-overlay {
+        width: 100vh;
+        height: 100vw;
+        transform: rotate(90deg);
+        /* background-color: #000; */
+    }
+
+    .container-em-exibicao:fullscreen #fullScreen {
+        right: 10px;
+        bottom: 30px;
+    }
+
+    .container-em-exibicao:fullscreen input#barra-tempo {
+        margin: 0;
+        transform: rotate(90deg);
+        transform-origin: left bottom;
+        position: absolute;
+        left: 10px;
+        top: 0;
+        height: 8px;
+        width: 100vh;
+    }
 
 
 
+    /* ----------------------------------------------------------- */
 
     .container-de-cards {
         position: relative;
@@ -782,11 +810,4 @@
         cursor: pointer;
     }
 
-}
-
-.container-em-exibicao:fullscreen .controles-overlay button img {
-    /* position: absolute; */
-
-    transform: rotate(90deg);
-    background-color: #000;
 }
