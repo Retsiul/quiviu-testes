@@ -714,7 +714,7 @@
 
     .acoes-video {
         position: absolute;
-        top: -60px;
+        top: -63px;
         left: 10px;
         gap: 15px;
         z-index: 1000;
@@ -728,8 +728,16 @@
     }
 
     .acoes-video a {
+        display: flex;
+        align-items: center;
+        gap: 7px;
         color: rgb(0, 0, 0);
         text-decoration: none;
+    }
+
+    .acoes-video a img {
+        width: 25px;
+
     }
 
     /* --------------------------------------------------- */
