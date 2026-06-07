@@ -499,10 +499,12 @@
         height: 100vw;
         transition: transform 0.3s ease-in-out;
         transform-origin: center center;
+        inset: auto;
         transform: rotate(90deg);
     }
 
     .container-em-exibicao:fullscreen #fullScreen {
+        position: fixed;
         right: 20px;
         bottom: 30px;
     }
@@ -659,6 +661,7 @@
     .controles-overlay {
         width: 100%;
         height: 100%;
+        inset: 0 0 0 0;
         position: absolute;
         display: flex;
         align-items: center;
