@@ -95,8 +95,10 @@
 
                 <div class="controles-overlay">
                     <button onclick="playPause()"><img class="inicio-play" id="btnPlay" src="" alt="play"></button>
+                    <button class="reiniciar-video">recarregar</button>
                     <button onclick="toggleFullscreen()" id="fullScreen"><img src="assets/full-screen-icon.svg"
                             alt="full screen"></button>
+
                 </div>
 
                 <input type="range" id="barra-tempo" value="0" max="100" oninput="mudarTempo(this.value)">
@@ -530,12 +532,19 @@
             player.addEventListener("loadstart", () => {
                 document.querySelector(".inicio-play").style.opacity = "0"
 
+
             })
 
             player.addEventListener("canplay", () => {
                 loader.style.display = "none";
                 player.play();
             }, { once: true });
+
+            player.addEventListener("ended", () => {
+                console.log("video terminou")
+                document.querySelector(".reiniciar-video").style.opacity = "1"
+
+            })
 
 
         }
@@ -547,6 +556,7 @@
 
             if (video.paused) {
                 video.play();
+                document.querySelector(".reiniciar-video").style.opacity = "0"
                 document.getElementById("btnPlay").src = iconPause;
                 document.querySelector(".inicio-play").classList.remove("fixo")
                 document.querySelector(".inicio-play").style.opacity = "1"

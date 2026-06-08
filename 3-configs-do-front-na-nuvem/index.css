@@ -673,6 +673,10 @@
         background-color: transparent;
         border: none;
         cursor: pointer;
+        position: relative;
+        z-index: 3;
+        padding: 15px 50px;
+
     }
 
 
@@ -680,6 +684,17 @@
         width: 50px;
         border-radius: 50%;
         object-fit: cover;
+    }
+
+    .controles-overlay button.reiniciar-video {
+        background-color: #b1f11d46;
+        color: #fff;
+        font-size: 20px;
+        padding: 20px;
+        border-radius: 6px;
+        position: absolute;
+        z-index: 0;
+        opacity: 0;
     }
 
     .inicio-play {
@@ -690,6 +705,7 @@
         position: absolute;
         right: 20px;
         bottom: 8px;
+        padding: 0;
 
     }
 
