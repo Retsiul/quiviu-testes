@@ -530,12 +530,6 @@
 
             player.load();
 
-            player.addEventListener("loadstart", () => {
-                document.querySelector(".inicio-play").style.opacity = "0"
-
-
-            })
-
             player.addEventListener("canplay", () => {
                 loader.style.display = "none";
                 player.play();
@@ -547,9 +541,6 @@
 
             })
 
-            player.addEventListener("playing", () => {
-                player.style.opacity = "1";
-            });
 
         }
 
@@ -600,18 +591,20 @@
             }
 
             if (estaLigado === true) {
-                document.querySelector(".fixo").style.display = "block"
+                document.querySelector(".fixo").style.opacity = "1"
+
                 console.log("estou sendo mostrado")
 
             }
 
             if (estaLigado === false && document.querySelector(".inicio-play").classList.contains("fixo")) {
                 console.log("estou sendo escondido")
-                document.querySelector(".fixo").style.display = "none"
+                document.querySelector(".fixo").style.opacity = "0"
 
             }
             if (estaLigado === false && document.querySelector(".inicio-play").classList.contains("fixo") === false) {
                 estaLigado = true
+                console.log("estou sendo true")
             }
 
 
