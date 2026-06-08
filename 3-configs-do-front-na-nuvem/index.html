@@ -87,7 +87,8 @@
             <!-- --------------------------------- -->
 
             <div class="container-em-exibicao">
-                <video id="video-em-exibicao" src=""></video>
+                <video id="video-em-exibicao" src="" preload="auto"
+                    poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></video>
 
                 <div class="loader">
                     <div class="spinner"></div>
@@ -525,8 +526,8 @@
 
             loader.style.display = "flex";
 
+            document.querySelector(".reiniciar-video").style.opacity = "0"
 
-            player.src = urlVideo;
             player.load();
 
             player.addEventListener("loadstart", () => {
@@ -546,6 +547,9 @@
 
             })
 
+            player.addEventListener("playing", () => {
+                player.style.opacity = "1";
+            });
 
         }
 
