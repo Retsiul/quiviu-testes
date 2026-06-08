@@ -231,7 +231,7 @@
                             li.innerHTML = `   <img src="${clube.logo_url}" alt=""> ${clube.nome}`
 
                             if (clube.logo_url == null || clube.logo_url === "") {
-                                li.innerHTML = `<img src="https://placehold.co/30x30" alt=""/>  ${clube.nome}`;
+                                li.innerHTML = `<img src="https://placehold.co/30x30/FFFFFF/FFFFFF" alt=""/>  ${clube.nome}`;
                             }
                             // 
                             li.style.padding = "10px";
@@ -319,7 +319,7 @@
 
             if (logo == null || logo === "") {
                 logoDoClube = "https://placehold.co/30x30"
-                document.getElementById("logo-clube").innerHTML = `<img src="https://placehold.co/30x30" alt="${nome}"/>`;
+                document.getElementById("logo-clube").innerHTML = `<img src="https://placehold.co/30x30/FFFFFF/FFFFFF" alt="${nome}"/>`;
             }
 
             // Renderiza as quadras dinamicamente a partir do BD do clube escolhido antes de filtrar
@@ -530,22 +530,27 @@
 
             document.querySelector(".reiniciar-video").style.opacity = "0"
 
+
+
+
             player.load();
 
             player.addEventListener("canplay", () => {
                 loader.style.display = "none";
+
                 player.play();
             }, { once: true });
 
             player.addEventListener("ended", () => {
                 console.log("video terminou")
                 document.querySelector(".reiniciar-video").style.opacity = "1"
+                document.querySelector(".inicio-play").style.opacity = "0"
+
 
             })
 
 
         }
-
 
         let timer;
         function playPause() {
@@ -558,8 +563,6 @@
                 document.querySelector(".inicio-play").classList.remove("fixo")
                 document.querySelector(".inicio-play").style.opacity = "1"
 
-
-
                 timer = setTimeout(() => {
                     document.querySelector(".inicio-play").style.opacity = "0"
                     document.querySelector(".inicio-play").style.transition = "opacity 1s ease";
@@ -570,7 +573,7 @@
                 document.querySelector(".inicio-play").style.opacity = "1"
                 document.querySelector(".inicio-play").style.transition = "opacity 0s ease";
                 document.querySelector(".inicio-play").classList.add("fixo")
-                document.querySelector(".fixo").style.display = "block"
+                // document.querySelector(".fixo").style.display = "block"
 
 
 
@@ -586,6 +589,7 @@
 
         pai.addEventListener("click", function (event) {
             // Verifica se o elemento clicado é o próprio pai
+
             if (event.target === this) {
                 estaLigado = !estaLigado;
                 console.log("Estado atual:", estaLigado);
@@ -594,24 +598,21 @@
                 console.log("Clicou em um filho. Ignorando...");
             }
 
-            if (estaLigado === true) {
+            if (estaLigado === true && document.querySelector(".inicio-play").classList.contains("fixo") === true) {
                 document.querySelector(".inicio-play").style.opacity = "1"
-
 
                 console.log("estou sendo mostrado")
 
             }
 
-            if (estaLigado === false && document.querySelector(".inicio-play").classList.contains("fixo") && video.paused) {
+            if (estaLigado === false && video.paused && document.querySelector(".inicio-play").classList.contains("fixo") === true) {
                 console.log("estou sendo escondido")
                 document.querySelector(".inicio-play").style.opacity = "0"
-
 
             }
             if (estaLigado === false && document.querySelector(".inicio-play").classList.contains("fixo") === false) {
                 estaLigado = true
 
-                console.log("estou sendo true")
             }
 
 
