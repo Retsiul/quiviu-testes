@@ -89,6 +89,10 @@
             <div class="container-em-exibicao">
                 <video id="video-em-exibicao" src=""></video>
 
+                <div class="loader">
+                    <div class="spinner"></div>
+                </div>
+
                 <div class="controles-overlay">
                     <button onclick="playPause()"><img class="inicio-play" id="btnPlay" src="" alt="play"></button>
                     <button onclick="toggleFullscreen()" id="fullScreen"><img src="assets/full-screen-icon.svg"
@@ -222,6 +226,10 @@
                             const li = document.createElement("li");
                             // luis mexeu aqui
                             li.innerHTML = `   <img src="${clube.logo_url}" alt=""> ${clube.nome}`
+
+                            if (clube.logo_url == null || clube.logo_url === "") {
+                                li.innerHTML = `<img src="https://placehold.co/30x30" alt=""/>  ${clube.nome}`;
+                            }
                             // 
                             li.style.padding = "10px";
                             li.style.cursor = "pointer";
@@ -231,6 +239,8 @@
                                 listaSugestoes.style.display = "none";
                                 selecionarClube(clube.id, clube.nome, clube.logo_url);
                                 inputBusca.value = "";
+
+
                             });
                             listaSugestoes.appendChild(li);
                         });
@@ -304,6 +314,11 @@
             horaSelecionada = "";
             definirDataHoje();
 
+            if (logo == null || logo === "") {
+                logoDoClube = "https://placehold.co/30x30"
+                document.getElementById("logo-clube").innerHTML = `<img src="https://placehold.co/30x30" alt="${nome}"/>`;
+            }
+
             // Renderiza as quadras dinamicamente a partir do BD do clube escolhido antes de filtrar
             await carregarQuadrasDoClube(id);
 
@@ -324,7 +339,20 @@
 
             quadraSelecionada = "";
 
+            document.getElementById("filtro-calendario").value = ""
+
+            flatpickr("#filtro-calendario", {
+                locale: "pt",
+                altInput: true,
+                altFormat: "d/ m/ Y",
+                dateFormat: "Y-m-d",
+                clickOpens: true,
+                disableMobile: true
+            });
+
         }
+
+
 
         // Busca as quadras vinculadas a este clube específico no banco de dados da nuvem
         async function carregarQuadrasDoClube(clubeId) {
@@ -490,6 +518,24 @@
 
             // Atualiza o link de download com a mesma URL
             linkDownload.href = urlVideo;
+
+            const loader = document.querySelector(".loader");
+
+            loader.style.display = "flex";
+
+
+            player.src = urlVideo;
+            player.load();
+
+            player.addEventListener("loadstart", () => {
+                document.querySelector(".inicio-play").style.opacity = "0"
+
+            })
+
+            player.addEventListener("canplay", () => {
+                loader.style.display = "none";
+                player.play();
+            }, { once: true });
 
 
         }
