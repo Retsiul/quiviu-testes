@@ -240,7 +240,7 @@
                             li.addEventListener("click", () => {
                                 inputBusca.value = clube.nome;
                                 listaSugestoes.style.display = "none";
-                                selecionarClube(clube.id, clube.nome, clube.logo_url);
+                                selecionarClube(clube.id, clube.nome, clube.logo_url, clube.cidade);
                                 inputBusca.value = "";
 
 
@@ -304,18 +304,22 @@
 
 
         // Executado quando um clube é clicado na lista de sugestões
-        async function selecionarClube(id, nome, logo) {
+        async function selecionarClube(id, nome, logo, cidade) {
             clubeSelecionadoId = id;
             nomeClubeSelecionado = nome;
             logoDoClube = logo
             document.getElementById("logo-clube").innerHTML = `<img src="${logo}" alt="${nome}"/>`;
             document.getElementById("nome-clube-titulo").innerText = nome;
-            document.getElementById("nome-cidade").innerHTML = ' <img class="icon-local" src="assets/icon-local.svg" alt = "cidade" /> são benedito-ce';
+            document.getElementById("nome-cidade").innerHTML = `<img class="icon-local" src="assets/icon-local.svg" alt = "cidade" /> ${cidade}`;
             document.getElementById("painel-clube-atual").classList.remove("oculto");
 
             quadraSelecionada = "";
             horaSelecionada = "";
             definirDataHoje();
+            if (cidade == null || cidade === "") {
+
+                document.getElementById("nome-cidade").innerHTML = "";
+            }
 
             if (logo == null || logo === "") {
                 logoDoClube = "https://placehold.co/30x30"
