@@ -3,27 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="stylesheet" href="pw.css">
+
+
     <link rel="stylesheet" href="login.css" />
     <title>login</title>
 
 </head>
 <body>
 
-    <div class="container">
-        <h2 id="form-title">Reviva seus melhores lances</h2>
+    <div id="installScreen">
 
-        <div id="register-fields" style="display: none;">
-            <input type="text" id="nome" placeholder="Nome Completo">
-        </div>
-        <input type="email" id="email" placeholder="Seu E-mail">
-        <input type="password" id="senha" placeholder="Sua Senha">
+        <button id="installBtn" style="display:none">
+            <span>Instalar</span>
+            <img src="assets/icon-512.png" alt="">
+        </button>
 
-        <button id="btn-submit" onclick="executarAcao()">Entrar</button>
-
-        <div class="toggle-link" id="toggle-auth" onclick="alternarModo()">
-            Não tem conta? <span>Cadastre-se</span>
-        </div>
     </div>
+    <div id="appScreen" style="display:none">
+
+
+        <div class="container">
+            <h2 id="form-title">Reviva seus melhores lances</h2>
+
+            <div id="register-fields" style="display: none;">
+                <input type="text" id="nome" placeholder="Nome Completo">
+            </div>
+            <input type="email" id="email" placeholder="Seu E-mail">
+            <input type="password" id="senha" placeholder="Sua Senha">
+
+            <button id="btn-submit" onclick="executarAcao()">Entrar</button>
+
+            <div class="toggle-link" id="toggle-auth" onclick="alternarModo()">
+                Não tem conta? <span>Cadastre-se</span>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        let deferredPrompt;
+
+        // Registrar Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
+        // Verificar se é PWA
+        function isPWA() {
+            return window.matchMedia('(display-mode: standalone)').matches ||
+                window.navigator.standalone === true;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+
+            const installScreen =
+                document.getElementById('installScreen');
+
+            const appScreen =
+                document.getElementById('appScreen');
+
+            const installBtn =
+                document.getElementById('installBtn');
+
+            if (isPWA()) {
+
+                if (installScreen)
+                    installScreen.style.display = 'none';
+
+                if (appScreen)
+                    appScreen.style.display = 'block';
+
+            } else {
+
+                if (installScreen)
+                    installScreen.style.display = 'block';
+
+                if (appScreen)
+                    appScreen.style.display = 'none';
+            }
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+
+                e.preventDefault();
+
+                deferredPrompt = e;
+
+                if (installBtn)
+                    installBtn.style.display = 'flex';
+            });
+
+            if (installBtn) {
+
+                installBtn.addEventListener('click', async () => {
+
+                    if (!deferredPrompt) return;
+
+                    deferredPrompt.prompt();
+
+                    await deferredPrompt.userChoice;
+                });
+
+            }
+
+        });
+
+        // Após instalar
+        window.addEventListener('appinstalled', () => {
+
+            location.reload();
+
+        });
+
+    </script>
 
     <script>
         let modoLogin = true;
