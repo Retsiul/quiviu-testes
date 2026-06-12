@@ -10,6 +10,8 @@
     width: 100vw;
     inset: 0 0 0 0;
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     background-color: black;
     color: white;
     position: fixed;
@@ -28,11 +30,13 @@
 #installScreen button {
     position: relative;
     z-index: 1;
-    margin: 50% auto;
+    margin: 15% auto;
+    width: max-content;
     background-color: black;
     color: white;
     padding: 8px 20px;
     align-items: center;
+    align-self: center;
     justify-content: center;
     font-size: 18px;
     gap: 8px;
