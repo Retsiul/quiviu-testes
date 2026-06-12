@@ -113,7 +113,6 @@
                     document.querySelector(".spinner-download").style.display = "block"
 
                     if (!deferredPrompt) return;
-
                     deferredPrompt.prompt();
 
                     await deferredPrompt.userChoice;
@@ -125,8 +124,18 @@
 
         // Após instalar
         window.addEventListener('appinstalled', () => {
-
             location.reload();
+
+            setTimeout(() => {
+
+                if (!isPWA() && !deferredPrompt) {
+
+                    labelBtn.innerText =
+                        "Abra o aplicativo Quiviu pela tela inicial";
+
+                }
+
+            }, 2000);
 
         });
 
