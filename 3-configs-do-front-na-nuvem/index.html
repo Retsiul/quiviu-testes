@@ -3,122 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
     <title>Quiviu</title>
 </head>
 <body>
-    <div class="container">
-        <header>
 
-            <div>
-                <h1><img src="assets/logo.png" alt="logo quiviu"></h1>
-                <small style="display: none;" id="boas-vindas">Olá, Usuário</small>
-            </div>
-            <button class="logout" onclick="logout()">
-                <img src="assets/exit-icon.svg" alt="sair">
-                Sair</button>
-        </header>
-        <!-- - -->
-        <div class="viewport">
-            <div class="container-secao">
-                <!-- --------------------------------- -->
-                <div class="secao">
-                    <h3>Buscar Clube</h3>
-                    <div class="busca">
-                        <input type="text" id="busca-clube-texto" placeholder="pesquisar..." autocomplete="off" />
-                        <ul id="lista-sugestoes">
-                        </ul>
-                    </div>
-                </div>
-                <!-- --------------------------------- -->
+    <div id="installScreen">
 
-                <div id="painel-clube-atual" class="oculto">
-                    <!-- --------------------------------- -->
-                    <div class="clube">
-                        <span id="logo-clube"></span>
-                        <div>
+        <h1>Instale o Quiviu</h1>
 
-                            <h2 id="nome-clube-titulo">
-                                Clube Selecionado
+        <p>
+            Para continuar usando o aplicativo,
+            instale-o no seu dispositivo.
+        </p>
 
-                            </h2>
-
-                            <p id="nome-cidade">
-                            </p>
-                        </div>
-                    </div>
-                    <!-- --------------------------------- -->
-                    <div class="secao calendario">
-
-                        <input type="text" id="filtro-calendario" placeholder="Quando você jogou?"
-                            onchange="mudarData()" />
-                    </div>
-                    <!-- --------------------------------- -->
-
-                    <div class="secao">
-                        <label><strong>Quadras </strong> <img src="assets/soccer-icon.svg" alt=""></label>
-                        <div class="btn-grupo container-quadras" id="grupo-quadras"></div>
-                    </div>
-                    <!-- --------------------------------- -->
-
-                    <div class="secao" id="esconder-horarios">
-                        <label><strong>Horário</strong><img src="assets/clock-icon.svg" alt=""> </label>
-                        <div class="container-horarios" id="grupo-horarios"></div>
-                    </div>
-                    <!-- --------------------------------- -->
-
-                </div>
-                <!-- --------------------------------- -->
-
-            </div>
-            <!-- --------------------------------- -->
-
-            <div class="erro-replay" id="erro-replay"></div>
-            <!-- --------------------------------- -->
-
-        </div>
-        <!-- --------------------------------- -->
-
-        <div class="grid-replays" id="grid-replays">
-
-            <div class="div-vazia"></div>
-            <!-- --------------------------------- -->
-
-            <div class="container-em-exibicao">
-                <video id="video-em-exibicao" src="" preload="auto"
-                    poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></video>
-
-                <div class="loader">
-                    <div class="spinner"></div>
-                </div>
-
-                <div class="controles-overlay">
-                    <button onclick="playPause()"><img class="inicio-play" id="btnPlay" src="" alt="play"></button>
-                    <button class="reiniciar-video"><img src="assets/reload-icon.svg" alt=""></button>
-                    <button onclick="toggleFullscreen()" id="fullScreen"><img src="assets/full-screen-icon.svg"
-                            alt="full screen"></button>
-
-                </div>
-
-                <input type="range" id="barra-tempo" value="0" max="100" oninput="mudarTempo(this.value)">
-
-                <div class="acoes-video">
-                    <a id="btn-download" href="">
-                        <img src="assets/download-icon.svg" alt="download"> Baixar Vídeo</a>
-                </div>
-            </div>
-            <!-- --------------------------------- -->
-            <div id="nome-clube"></div>
-            <div id="container-de-cards" class="container-de-cards"></div>
-
-        </div>
-
-        <button class="fechar-replay" id="fechar-replay"><img src="assets/back-icon.svg" alt="voltar"> Voltar</button>
+        <button id="installBtn" style="display:none">
+            Instalar Aplicativo
+        </button>
 
     </div>
 
+    <div id="appScreen" style="display:none">
+
+        <div class="container">
+            <header>
+
+                <div>
+                    <h1><img src="assets/logo.png" alt="logo quiviu"></h1>
+                    <small style="display: none;" id="boas-vindas">Olá, Usuário</small>
+                </div>
+                <button class="logout" onclick="logout()">
+                    <img src="assets/exit-icon.svg" alt="sair">
+                    Sair</button>
+            </header>
+            <!-- - -->
+            <div class="viewport">
+                <div class="container-secao">
+                    <!-- --------------------------------- -->
+                    <div class="secao">
+                        <h3>Buscar Clube</h3>
+                        <div class="busca">
+                            <input type="text" id="busca-clube-texto" placeholder="pesquisar..." autocomplete="off" />
+                            <ul id="lista-sugestoes">
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- --------------------------------- -->
+
+                    <div id="painel-clube-atual" class="oculto">
+                        <!-- --------------------------------- -->
+                        <div class="clube">
+                            <span id="logo-clube"></span>
+                            <div>
+
+                                <h2 id="nome-clube-titulo">
+                                    Clube Selecionado
+
+                                </h2>
+
+                                <p id="nome-cidade">
+                                </p>
+                            </div>
+                        </div>
+                        <!-- --------------------------------- -->
+                        <div class="secao calendario">
+
+                            <input type="text" id="filtro-calendario" placeholder="Quando você jogou?"
+                                onchange="mudarData()" />
+                        </div>
+                        <!-- --------------------------------- -->
+
+                        <div class="secao">
+                            <label><strong>Quadras </strong> <img src="assets/soccer-icon.svg" alt=""></label>
+                            <div class="btn-grupo container-quadras" id="grupo-quadras"></div>
+                        </div>
+                        <!-- --------------------------------- -->
+
+                        <div class="secao" id="esconder-horarios">
+                            <label><strong>Horário</strong><img src="assets/clock-icon.svg" alt=""> </label>
+                            <div class="container-horarios" id="grupo-horarios"></div>
+                        </div>
+                        <!-- --------------------------------- -->
+
+                    </div>
+                    <!-- --------------------------------- -->
+
+                </div>
+                <!-- --------------------------------- -->
+
+                <div class="erro-replay" id="erro-replay"></div>
+                <!-- --------------------------------- -->
+
+            </div>
+            <!-- --------------------------------- -->
+
+            <div class="grid-replays" id="grid-replays">
+
+                <div class="div-vazia"></div>
+                <!-- --------------------------------- -->
+
+                <div class="container-em-exibicao">
+                    <video id="video-em-exibicao" src="" preload="auto"
+                        poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"></video>
+
+                    <div class="loader">
+                        <div class="spinner"></div>
+                    </div>
+
+                    <div class="controles-overlay">
+                        <button onclick="playPause()"><img class="inicio-play" id="btnPlay" src="" alt="play"></button>
+                        <button class="reiniciar-video"><img src="assets/reload-icon.svg" alt=""></button>
+                        <button onclick="toggleFullscreen()" id="fullScreen"><img src="assets/full-screen-icon.svg"
+                                alt="full screen"></button>
+
+                    </div>
+
+                    <input type="range" id="barra-tempo" value="0" max="100" oninput="mudarTempo(this.value)">
+
+                    <div class="acoes-video">
+                        <a id="btn-download" href="">
+                            <img src="assets/download-icon.svg" alt="download"> Baixar Vídeo</a>
+                    </div>
+                </div>
+                <!-- --------------------------------- -->
+                <div id="nome-clube"></div>
+                <div id="container-de-cards" class="container-de-cards"></div>
+
+            </div>
+
+            <button class="fechar-replay" id="fechar-replay"><img src="assets/back-icon.svg" alt="voltar">
+                Voltar</button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        let deferredPrompt;
+
+        // Registrar Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
+        // Verificar se é PWA
+        function isPWA() {
+            return window.matchMedia('(display-mode: standalone)').matches ||
+                window.navigator.standalone === true;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+
+            const installScreen =
+                document.getElementById('installScreen');
+
+            const appScreen =
+                document.getElementById('appScreen');
+
+            const installBtn =
+                document.getElementById('installBtn');
+
+            if (isPWA()) {
+
+                if (installScreen)
+                    installScreen.style.display = 'none';
+
+                if (appScreen)
+                    appScreen.style.display = 'block';
+
+            } else {
+
+                if (installScreen)
+                    installScreen.style.display = 'block';
+
+                if (appScreen)
+                    appScreen.style.display = 'none';
+            }
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+
+                e.preventDefault();
+
+                deferredPrompt = e;
+
+                if (installBtn)
+                    installBtn.style.display = 'block';
+            });
+
+            if (installBtn) {
+
+                installBtn.addEventListener('click', async () => {
+
+                    if (!deferredPrompt) return;
+
+                    deferredPrompt.prompt();
+
+                    await deferredPrompt.userChoice;
+                });
+
+            }
+
+        });
+
+        // Após instalar
+        window.addEventListener('appinstalled', () => {
+
+            location.reload();
+
+        });
+
+    </script>
+
+    <!-- ------------------------------------------------------------------------- -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pt.js"></script>
 
@@ -133,6 +235,7 @@
             disableMobile: true
         });
     </script>
+    <!-- ------------------------------------------------------------------------- -->
 
     <script>
 
