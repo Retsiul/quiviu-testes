@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#installScreen {
+    background-image: url(assets/hero.png);
+    height: 100vh;
+    width: 100vw;
+    inset: 0 0 0 0;
+    background-size: cover;
+    background-color: black;
+    color: white;
+    position: fixed;
+}
+
+#installScreen::after {
+    position: fixed;
+    content: "";
+    inset: 0 0 0 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(49, 88, 49, 0.356);
+}
+
+
+#installScreen button {
+    position: relative;
+    z-index: 1;
+    margin: 50% auto;
+    background-color: black;
+    color: white;
+    padding: 8px 20px;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    gap: 8px;
+    border: solid 1px #b2f11d;
+    border-radius: 6px;
+}
+
+
+#installScreen button img {
+    width: 30px;
+    display: inline-block;
+}

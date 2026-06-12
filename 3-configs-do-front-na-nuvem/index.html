@@ -6,6 +6,8 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#000000">
 
+    <link rel="stylesheet" href="pw.css">
+
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
@@ -15,15 +17,9 @@
 
     <div id="installScreen">
 
-        <h1>Instale o Quiviu</h1>
-
-        <p>
-            Para continuar usando o aplicativo,
-            instale-o no seu dispositivo.
-        </p>
-
         <button id="installBtn" style="display:none">
-            Instalar Aplicativo
+            <span>Instalar</span>
+            <img src="assets/icon-512.png" alt="">
         </button>
 
     </div>
@@ -193,7 +189,7 @@
                 deferredPrompt = e;
 
                 if (installBtn)
-                    installBtn.style.display = 'block';
+                    installBtn.style.display = 'flex';
             });
 
             if (installBtn) {
