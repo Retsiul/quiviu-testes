@@ -18,9 +18,11 @@
     <div id="installScreen">
 
         <button id="installBtn" style="display:none">
-            <span>Instalar</span>
+            <div class="spinner-download" style="display:none"></div>
+            <span id="labelBtn">Instalar</span>
             <img src="assets/icon-512.png" alt="">
         </button>
+
 
     </div>
     <div id="appScreen" style="display:none">
@@ -72,6 +74,10 @@
             const installBtn =
                 document.getElementById('installBtn');
 
+
+            const labelBtn =
+                document.getElementById('labelBtn');
+
             if (isPWA()) {
 
                 if (installScreen)
@@ -102,6 +108,9 @@
             if (installBtn) {
 
                 installBtn.addEventListener('click', async () => {
+
+                    labelBtn.innerText = "Instalando"
+                    document.querySelector(".spinner-download").style.display = "block"
 
                     if (!deferredPrompt) return;
 
