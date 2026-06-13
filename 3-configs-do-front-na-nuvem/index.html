@@ -141,7 +141,43 @@
 
     </div>
 
+    <script>
 
+        abrir = document.querySelector(".open-menu")
+        fechar = document.querySelector(".container-logout")
+
+        function abrirMenu() {
+            fechar.classList.add("container-logout-active")
+            document.querySelector(".content-menu").style.display = "block";
+            fechar.style.transition = "height 0.3s ease-in-out";
+
+
+
+        }
+
+        function fecharMenu() {
+            document.querySelector(".content-menu").style.display = "none";
+            fechar.classList.remove("container-logout-active")
+            fechar.style.transition = "height 0s ease-in-out";
+
+        }
+
+        abrir.addEventListener("click", function () {
+            abrirMenu()
+            abrir.style.display = "none"
+        })
+
+        fechar.addEventListener("click", function (event) {
+            if (event.target === event.currentTarget) {
+                fecharMenu();
+                abrir.style.display = "block";
+            }
+
+        });
+
+
+
+    </script>
 
     <script>
         if ('serviceWorker' in navigator) {
