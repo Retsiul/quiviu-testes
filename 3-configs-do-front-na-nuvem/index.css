@@ -558,7 +558,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        margin: 5px 20px;
+        margin: 45px 5px 5px 20px;
         font-weight: 500;
     }
 
@@ -603,17 +603,6 @@
         justify-content: space-around;
     }
 
-    .nome-clube {
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .nome-clube img {
-        width: 40px;
-        border-radius: 50%;
-    }
 
     .card-infos {
         display: flex;
@@ -735,14 +724,15 @@
         justify-content: end;
         gap: 15px;
         z-index: 1000;
-        font-size: 13px;
+
         border-radius: 6px;
-        font-weight: bold;
 
     }
 
     .acoes-video a,
     .acoes-video button {
+        font-weight: bold;
+        font-size: 11px;
         border: none;
         background-color: transparent;
         display: flex;
