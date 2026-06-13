@@ -466,9 +466,6 @@
         pointer-events: auto;
     }
 
-    /* #video-em-exibicao {
-        opacity: 0;
-    } */
 
     /* ----------------------------------------------------------- */
 
@@ -677,7 +674,8 @@
 
 
     .controles-overlay button img {
-        width: 50px;
+        background-color: #00000038;
+        width: 60px;
         border-radius: 50%;
         object-fit: cover;
     }
@@ -692,7 +690,9 @@
     }
 
     .controles-overlay button.reiniciar-video img {
-        width: 50px;
+        width: 60px;
+        background-color: #00000038;
+
     }
 
     .inicio-play {

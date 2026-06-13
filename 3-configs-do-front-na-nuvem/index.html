@@ -101,7 +101,8 @@
                 </div>
 
                 <div class="controles-overlay">
-                    <button onclick="playPause()"><img class="inicio-play" id="btnPlay" src="" alt="play"></button>
+                    <button onclick="playPause()"><img class="inicio-play comeco" id="btnPlay" src=""
+                            alt="play"></button>
                     <button class="reiniciar-video"><img src="assets/reload-icon.svg" alt=""></button>
                     <button onclick="toggleFullscreen()" id="fullScreen"><img src="assets/full-screen-icon.svg"
                             alt="full screen"></button>
@@ -560,8 +561,6 @@
 
             loader.style.display = "flex";
 
-            document.querySelector(".inicio-play").style.opacity = "0"
-
             document.querySelector(".reiniciar-video").style.opacity = "0"
 
 
@@ -571,6 +570,14 @@
 
             player.addEventListener("canplay", () => {
                 loader.style.display = "none";
+                document.getElementById("btnPlay").src = iconPlay;
+                document.querySelector(".inicio-play").style.opacity = "1"
+
+
+                timer = setTimeout(() => {
+                    document.querySelector(".inicio-play").style.opacity = "0"
+                    document.querySelector(".inicio-play").style.transition = "opacity 0.5s ease";
+                }, 500);
 
                 player.play();
             }, { once: true });
@@ -638,7 +645,8 @@
                 document.querySelector(".inicio-play").style.opacity = "1"
                 document.querySelector(".inicio-play").style.transition = "opacity 0s ease";
                 document.querySelector(".inicio-play").classList.add("fixo")
-                // document.querySelector(".fixo").style.display = "block"
+
+
 
 
 
@@ -663,24 +671,54 @@
                 console.log("Clicou em um filho. Ignorando...");
             }
 
-            if (estaLigado === true && document.querySelector(".inicio-play").classList.contains("fixo") === true) {
+
+            const btnPlay = document.getElementById("btnPlay");
+
+            if (document.querySelector(".inicio-play").classList.contains("comeco") === true) {
+                document.querySelector(".comeco").style.opacity = "1"
+
+            }
+
+
+            if (estaLigado === false && btnPlay.src.endsWith("assets/play-icon.svg") &&
+                document.querySelector(".inicio-play").classList.contains("fixo") === true
+            ) {
+
                 document.querySelector(".inicio-play").style.opacity = "1"
 
-                console.log("estou sendo mostrado")
+                document.querySelector(".inicio-play").classList.remove("comeco")
 
             }
 
-            if (estaLigado === false && video.paused && document.querySelector(".inicio-play").classList.contains("fixo") === true) {
-                console.log("estou sendo escondido")
+            if (estaLigado === true && btnPlay.src.endsWith("assets/play-icon.svg") &&
+                document.querySelector(".inicio-play").classList.contains("fixo") === true
+            ) {
+
                 document.querySelector(".inicio-play").style.opacity = "0"
-
-            }
-            if (estaLigado === false && document.querySelector(".inicio-play").classList.contains("fixo") === false) {
-                estaLigado = true
+                document.querySelector(".inicio-play").classList.remove("comeco")
 
             }
 
 
+            if (estaLigado === false && btnPlay.src.endsWith("assets/pause-icon.svg") &&
+                document.querySelector(".inicio-play").classList.contains("fixo") === false
+            ) {
+
+                document.querySelector(".inicio-play").style.opacity = "1"
+
+                document.querySelector(".inicio-play").classList.remove("comeco")
+
+                estaLigado = false
+
+            }
+
+            if (estaLigado === true && btnPlay.src.endsWith("assets/pause-icon.svg") &&
+                document.querySelector(".inicio-play").classList.contains("fixo") === false
+            ) {
+                document.querySelector(".inicio-play").style.opacity = "1"
+                document.querySelector(".inicio-play").classList.add("comeco")
+                estaLigado = false
+            }
         });
 
         // ---------------------------------------------------------------------
