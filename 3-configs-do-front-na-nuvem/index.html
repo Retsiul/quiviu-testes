@@ -109,13 +109,17 @@
                 </div>
 
                 <input type="range" id="barra-tempo" value="0" max="100" oninput="mudarTempo(this.value)">
-
                 <div class="acoes-video">
-                    <button id="btn-compartilhar" class="btn-share">Compartilhar Vídeo</button>
+                    <button id="btn-compartilhar" class="btn-share">
+                        <img src="assets/share-icon.svg" alt="compartilhar">
+                        Compartilhar
+                    </button>
                     <a id="btn-download" href="">
-                        <img src="assets/download-icon.svg" alt="download"> Baixar Vídeo</a>
+                        <img src="assets/download-icon.svg" alt="download">Download</a>
                 </div>
+
             </div>
+
             <!-- --------------------------------- -->
             <div id="nome-clube"></div>
             <div id="container-de-cards" class="container-de-cards"></div>
@@ -599,7 +603,7 @@
                 if (navigator.share) {
                     navigator.share({
                         title: 'Confira este replay!',
-                        text: 'Veja este vídeo da arena:',
+                        text: 'Veja este vídeo feito no Quiviu',
                         url: urlParaCompartilhar
                     }).catch(err => console.log("Erro ao compartilhar:", err));
                 } else {
