@@ -111,6 +111,7 @@
                 <input type="range" id="barra-tempo" value="0" max="100" oninput="mudarTempo(this.value)">
 
                 <div class="acoes-video">
+                    <button id="btn-compartilhar" class="btn-share">Compartilhar Vídeo</button>
                     <a id="btn-download" href="">
                         <img src="assets/download-icon.svg" alt="download"> Baixar Vídeo</a>
                 </div>
@@ -579,7 +580,38 @@
             })
 
 
+            // --- NOVA LÓGICA DE COMPARTILHAMENTO ---
+            const btnCompartilhar = document.getElementById("btn-compartilhar");
+
+            // Armazena a URL no botão para ser lida pelo script de clique
+            btnCompartilhar.setAttribute("data-url", urlVideo);
+            // ----------------------------------
+
         }
+        // ----------------------------------------------------------------------------------
+
+
+        document.addEventListener("click", function (event) {
+            // Verifica se o elemento clicado é o botão de compartilhar
+            if (event.target && event.target.id === "btn-compartilhar") {
+                const urlParaCompartilhar = event.target.getAttribute("data-url");
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Confira este replay!',
+                        text: 'Veja este vídeo da arena:',
+                        url: urlParaCompartilhar
+                    }).catch(err => console.log("Erro ao compartilhar:", err));
+                } else {
+                    // Fallback para navegadores que não suportam navigator.share
+                    navigator.clipboard.writeText(urlParaCompartilhar).then(() => {
+                        alert("Link copiado para a área de transferência!");
+                    });
+                }
+            }
+        });
+
+        // ----------------------------------------------------------------------------------
 
         let timer;
         function playPause() {
